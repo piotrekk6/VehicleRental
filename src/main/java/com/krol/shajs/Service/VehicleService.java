@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface VehicleService {
 
-    public List<Vehicle> addCar();
     public List<Vehicle> showAll();
+    //public List<Vehicle> findById();
 }

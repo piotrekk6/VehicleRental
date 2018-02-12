@@ -4,6 +4,7 @@ import com.krol.shajs.Enum.Color;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -14,5 +15,6 @@ public abstract class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String vin;
+    @NotNull
+    private String name;
 }

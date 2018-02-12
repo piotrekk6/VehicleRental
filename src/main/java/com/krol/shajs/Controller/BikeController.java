@@ -1,27 +1,30 @@
 package com.krol.shajs.Controller;
 
+import com.krol.shajs.Dto.BikeDto;
 import com.krol.shajs.Entity.Bike;
+import com.krol.shajs.Service.BikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
 
 @RestController
 public class BikeController {
 
-    private final BikeController bikeController;
 
+    private final BikeService bikeService;
 
     @Autowired
-    public BikeController(BikeController bikeController) {
-        this.bikeController = bikeController;
+    public BikeController(BikeService bikeService) {
+        this.bikeService = bikeService;
     }
 
-    @RequestMapping(value = "/addBike/{id}")
-    public String addBike()
-    {
-        return null;
-        //TODO napisac dodawanie rowerow poprzez konstruktor
+    @RequestMapping(value = "/addBike/{name}")
+    public void addBike(@PathVariable("name") String name) {
+
+        BikeDto bike = new BikeDto();
+        bike.setName(name);
+        bikeService.addBike(bike);
+
     }
 }
