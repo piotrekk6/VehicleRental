@@ -9,5 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class VehicleDto {
-    String name;
+    String manufacturer;
+    String vehicleType;
 }

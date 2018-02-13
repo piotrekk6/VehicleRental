@@ -10,7 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CarDto extends VehicleDto {
 
-    private String brand;
+
+    private String model;
     private Color color;
 
 }

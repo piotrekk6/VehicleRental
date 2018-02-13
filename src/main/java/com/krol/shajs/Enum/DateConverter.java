@@ -9,11 +9,19 @@ import java.time.LocalDate;
 public class DateConverter implements AttributeConverter<LocalDate, Date> {
     @Override
     public Date convertToDatabaseColumn(LocalDate localDate) {
-        return Date.valueOf(localDate);
+        if (localDate == null) {
+            return null;
+        } else {
+            return Date.valueOf(localDate);
+        }
     }
 
     @Override
     public LocalDate convertToEntityAttribute(Date date) {
-        return date.toLocalDate();
+        if (date == null) {
+            return null;
+        } else {
+            return date.toLocalDate();
+        }
     }
 }

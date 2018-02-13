@@ -19,11 +19,11 @@ public class BikeController {
         this.bikeService = bikeService;
     }
 
-    @RequestMapping(value = "/addBike/{name}")
-    public void addBike(@PathVariable("name") String name) {
+    @RequestMapping(value = "/addBike/{manufacturer}")
+    public void addBike(@PathVariable("manufacturer") String manufacturer) {
 
         BikeDto bike = new BikeDto();
-        bike.setName(name);
+        bike.setManufacturer(manufacturer);
         bikeService.addBike(bike);
 
     }

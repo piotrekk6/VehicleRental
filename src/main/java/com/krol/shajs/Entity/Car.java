@@ -1,6 +1,7 @@
 package com.krol.shajs.Entity;
 
 import com.krol.shajs.Enum.Color;
+import com.krol.shajs.Enum.ColorConverter;
 import com.krol.shajs.Enum.DateConverter;
 import lombok.Data;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Convert;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
@@ -17,7 +19,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Car extends Vehicle {
 
-    private String brand;
+    private String model;
+
+    @Convert(converter = ColorConverter.class)
     private Color color;
 
     @Convert(converter = DateConverter.class)
