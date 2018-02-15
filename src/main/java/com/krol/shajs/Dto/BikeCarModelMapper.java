@@ -31,4 +31,14 @@ public abstract class BikeCarModelMapper {
         return modelMapper.map(bike,BikeDto.class);
     }
 
+    public Car editCarDtoToEntity(EditCarDto editCarDto)
+    {
+        return modelMapper.map(editCarDto, Car.class);
+    }
+
+    public EditCarDto editCarEntityToDto(Car car)
+    {
+        return modelMapper.map(car, EditCarDto.class);
+    }
+
 }

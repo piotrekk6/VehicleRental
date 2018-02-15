@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
-@Setter
 public abstract class VehicleDto {
-    String manufacturer;
+
+
     String vehicleType;
 }

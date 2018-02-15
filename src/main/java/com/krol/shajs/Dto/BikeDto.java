@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BikeDto extends VehicleDto {
-    int weight;
+    String number;
 }

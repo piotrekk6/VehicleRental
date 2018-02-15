@@ -21,9 +21,6 @@ public abstract class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull
-    private String manufacturer;
-
     @Column(name = "dtype", insertable = false, updatable = false)
     String vehicleType;
 }
