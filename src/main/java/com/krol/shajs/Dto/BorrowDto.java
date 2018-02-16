@@ -12,5 +12,5 @@ import java.time.LocalDate;
 public class BorrowDto {
     private Long vehicleId;
     private Long borrowerId;
-    LocalDate dateFrom;
+    LocalDate date;
 }

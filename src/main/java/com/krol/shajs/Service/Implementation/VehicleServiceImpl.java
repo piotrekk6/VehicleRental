@@ -14,14 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleService {
 
+    private final VehicleRepository vehicleRepository;
+
     @Autowired
-    private VehicleRepository vehicleRepository;
+    public VehicleServiceImpl(VehicleRepository vehicleRepository) {
+        this.vehicleRepository = vehicleRepository;
+    }
 
     @Override
     public List<VehicleDto> showAll() {
@@ -29,9 +33,9 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
         List<VehicleDto> vehicleDtoResultList = new ArrayList<>();
 
         for (Vehicle vehicle : vehicleResultList) {
-            if (vehicle.getVehicleType().equals("Bike")) {
+            if (vehicle.getVehicleType().equals(VehicleType.CAR.getVehicleType())) {
                 vehicleDtoResultList.add(bikeEntityToDto((Bike) vehicle));
-            } else if (vehicle.getVehicleType().equals("Car")) {
+            } else if (vehicle.getVehicleType().equals(VehicleType.BIKE.getVehicleType())) {
                 vehicleDtoResultList.add(carEntityToDto((Car) vehicle));
             }
         }
@@ -41,11 +45,10 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     @Override
     public void deleteById(Long id) {
         vehicleRepository.delete(id);
-        //TODO record with specified id doesnt exist
     }
 
     @Override
-    public VehicleDto getVehicleDtoById(Long id) {
+    public VehicleDto getVehicleDtoById(Long id) throws NotFoundException {
         Vehicle vehicle = getVehicleByID(id);
 
         switch (vehicle.getVehicleType()) {
@@ -53,21 +56,19 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
                 return bikeEntityToDto((Bike) vehicle);
             case "Car":
                 return carEntityToDto((Car) vehicle);
-        } //Todo handle id not found
+        }
         return null;
     }
 
-    public Vehicle getVehicleByID(Long id)
-    {
-        return vehicleRepository.findOne(id); //TODO record with specified id doesnt exist
+    public Vehicle getVehicleByID(Long id) throws NotFoundException {
+        Vehicle vehicle = vehicleRepository.findOne(id);
+        if (vehicle == null) throw new NotFoundException(ExceptionCode.VEHICLE_NOT_FOUND);
+        else return vehicle;
+
     }
 
-/*    @Override
-    public VehicleDto findVehicle(Long id) throws NotFoundException {
-        Optional<Car> carOptional = carRepository.findById(id);
-
-        if(carOptional.isPresent()) return carOptional.get();
-        else throw new NotFoundException(ExceptionCode.VEHICLE_NOT_FOUND);
-
-    }*/
+    @Override
+    public Collection<Vehicle> getAll() {
+        return vehicleRepository.findAll();
+    }
 }

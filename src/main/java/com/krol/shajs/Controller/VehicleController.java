@@ -1,6 +1,7 @@
 package com.krol.shajs.Controller;
 
 import com.krol.shajs.Dto.VehicleDto;
+import com.krol.shajs.Exceptions.NotFoundException;
 import com.krol.shajs.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,7 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-    public VehicleDto showOne(@PathVariable("id") String id)
-    {
+    public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
         return vehicleService.getVehicleDtoById(Long.valueOf(id));
     }
 

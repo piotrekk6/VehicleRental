@@ -20,11 +20,8 @@ public class Borrow {
     private Long id;
 
     @Convert(converter = DateConverter.class)
-    private LocalDate dateFrom;
-
-    @Convert(converter = DateConverter.class)
-    private LocalDate dateTo;
-
+    private LocalDate date;
+    
     @OneToOne(cascade = CascadeType.ALL)
     @NotNull
     private Vehicle vehicle;
