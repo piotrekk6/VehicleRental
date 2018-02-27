@@ -1,0 +1,26 @@
+<!--<div *ngIf="selectedCar">
+  <div><span>Selected id: </span>{{selectedCar.id}}</div>
+  <div><span>name: </span><input [(ngModel)]="selectedCar.model" placeholder="name"><br></div>
+</div>-->
+<div>
+  <label>Vehicle :
+    <input #carModel />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(carModel.value); carModel.value=''">
+    add
+  </button>
+</div>
+
+  <ul class="cars">
+    <li *ngFor="let vehicle of vehicles">
+      <a routerLink="/details/{{vehicle.id}}">
+      <span class="badge">{{vehicle.id}}</span> {{vehicle.vehicleType}}: {{vehicle.name}}
+      </a>
+<!--      <button class="delete" title="delete vehicle" (click)="delete(vehicle)">X</button>-->
+    </li>
+  </ul>
+
+<!--<app-vehicle-details [vehicle]="selectedCar"></app-vehicle-details>-->
+
+

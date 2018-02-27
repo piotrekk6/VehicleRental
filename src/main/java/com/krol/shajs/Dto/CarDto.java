@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class CarDto extends VehicleDto {
 
-
     private String model;
     private Color color;
     private LocalDate productionDate;

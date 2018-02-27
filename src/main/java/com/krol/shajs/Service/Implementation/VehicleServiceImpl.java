@@ -2,11 +2,8 @@ package com.krol.shajs.Service.Implementation;
 
 import com.krol.shajs.Dto.BikeCarModelMapper;
 import com.krol.shajs.Dto.VehicleDto;
-import com.krol.shajs.Entity.Bike;
-import com.krol.shajs.Entity.Car;
 import com.krol.shajs.Entity.Vehicle;
 import com.krol.shajs.Enum.ExceptionCode;
-import com.krol.shajs.Enum.VehicleType;
 import com.krol.shajs.Exceptions.NotFoundException;
 import com.krol.shajs.Repository.VehicleRepository;
 import com.krol.shajs.Service.VehicleService;
@@ -33,11 +30,7 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
         List<VehicleDto> vehicleDtoResultList = new ArrayList<>();
 
         for (Vehicle vehicle : vehicleResultList) {
-            if (vehicle.getVehicleType().equals(VehicleType.CAR.getVehicleType())) {
-                vehicleDtoResultList.add(bikeEntityToDto((Bike) vehicle));
-            } else if (vehicle.getVehicleType().equals(VehicleType.BIKE.getVehicleType())) {
-                vehicleDtoResultList.add(carEntityToDto((Car) vehicle));
-            }
+            vehicleDtoResultList.add(vehicleEntityToDto(vehicle));
         }
         return vehicleDtoResultList;
     }
@@ -51,13 +44,7 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     public VehicleDto getVehicleDtoById(Long id) throws NotFoundException {
         Vehicle vehicle = getVehicleByID(id);
 
-        switch (vehicle.getVehicleType()) {
-            case "Bike":
-                return bikeEntityToDto((Bike) vehicle);
-            case "Car":
-                return carEntityToDto((Car) vehicle);
-        }
-        return null;
+        return vehicleEntityToDto(vehicle);
     }
 
     public Vehicle getVehicleByID(Long id) throws NotFoundException {

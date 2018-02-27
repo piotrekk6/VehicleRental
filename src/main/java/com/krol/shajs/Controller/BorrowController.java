@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @RestController
+@RequestMapping(value = "/api")
 public class BorrowController {
 
     @Autowired

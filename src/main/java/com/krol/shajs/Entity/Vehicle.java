@@ -23,4 +23,6 @@ public abstract class Vehicle {
 
     @Column(name = "dtype", insertable = false, updatable = false)
     String vehicleType;
+
+    private String name;
 }

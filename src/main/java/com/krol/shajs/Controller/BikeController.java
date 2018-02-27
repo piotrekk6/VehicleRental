@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/api")
 public class BikeController {
 
 
@@ -20,11 +21,11 @@ public class BikeController {
         this.bikeService = bikeService;
     }
 
-    @GetMapping(value = "/addBike/{number}")
-    public void addBike(@PathVariable("number") String number) {
+    @GetMapping(value = "/addBike/{name}")
+    public void addBike(@PathVariable("name") String name) {
 
         BikeDto bike = new BikeDto();
-        bike.setNumber(number);
+        bike.setName(name);
         bikeService.addBike(bike);
 
     }

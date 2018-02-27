@@ -1,0 +1,9 @@
+<div *ngIf="vehicle">
+<h4>Details</h4>
+<div><span>id: </span>{{vehicle.id}}</div>
+<!--<div><span>name: </span>{{vehicle.model}}<br>-->
+<label>model:
+  <input [(ngModel)]="vehicle.model" placeholder="name"><br>
+</label>
+  <button (click)="save()">save</button>
+</div>

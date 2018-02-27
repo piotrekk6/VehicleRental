@@ -1,7 +1,6 @@
 package com.krol.shajs.Service.Implementation;
 
 import com.krol.shajs.Dto.BorrowDto;
-import com.krol.shajs.Dto.VehicleDto;
 import com.krol.shajs.Dto.VehicleIfBorrowed;
 import com.krol.shajs.Entity.Borrow;
 import com.krol.shajs.Entity.Borrower;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 @Service
 public class BorrowServiceImpl implements BorrowService {
@@ -45,22 +43,19 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public Collection<VehicleIfBorrowed> getBorrowedVehiclesForSpecifiedDate(LocalDate date)
-    {
+    public Collection<VehicleIfBorrowed> getBorrowedVehiclesForSpecifiedDate(LocalDate date) {
         Collection<Borrow> borrowCollection = borrowRepository.findByDate(date);
         Collection<Vehicle> vehiclesAllCollection = vehicleService.getAll();
         Collection<VehicleIfBorrowed> vehicleIfBorrowed = new HashSet<>();
 
 
-        for(Borrow borrow : borrowCollection)
-        {
+        for (Borrow borrow : borrowCollection) {
             vehiclesAllCollection.remove(borrow.getVehicle());
-            vehicleIfBorrowed.add(new VehicleIfBorrowed(borrow.getVehicle().getId(),borrow.getVehicle().getVehicleType(),true,borrow.getBorrower().getId(),borrow.getBorrower().getFirstName(),borrow.getBorrower().getSecondName()));
+            vehicleIfBorrowed.add(new VehicleIfBorrowed(borrow.getVehicle().getId(), borrow.getVehicle().getVehicleType(), true, borrow.getBorrower().getId(), borrow.getBorrower().getFirstName(), borrow.getBorrower().getSecondName()));
         }
-        for(Vehicle vehicle : vehiclesAllCollection)
-        {
-            vehicleIfBorrowed.add(new VehicleIfBorrowed(vehicle.getId(),vehicle.getVehicleType(),
-                            false,null,null,null));
+        for (Vehicle vehicle : vehiclesAllCollection) {
+            vehicleIfBorrowed.add(new VehicleIfBorrowed(vehicle.getId(), vehicle.getVehicleType(),
+                    false, null, null, null));
         }
         return vehicleIfBorrowed;
 

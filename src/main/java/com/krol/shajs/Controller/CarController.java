@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api")
 public class CarController {
 
 
@@ -27,10 +28,10 @@ public class CarController {
         this.carService = carService;
     }
 
-    @PostMapping("/addCar/{model}")
-    public void addCarByManufacturer(@PathVariable("model") String model) {
+    @PostMapping("/addCar/{name}")
+    public void addCarByManufacturer(@PathVariable("name") String name) {
         CarDto carDto = new CarDto();
-        carDto.setModel(model);
+        carDto.setName(name);
         carService.addCar(carDto);
     }
 
