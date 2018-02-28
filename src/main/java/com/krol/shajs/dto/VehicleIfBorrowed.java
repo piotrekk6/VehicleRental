@@ -1,6 +1,5 @@
-package com.krol.shajs.Dto;
+package com.krol.shajs.dto;
 
-import com.krol.shajs.Enum.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

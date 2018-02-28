@@ -1,14 +1,10 @@
-package com.krol.shajs.Entity;
+package com.krol.shajs.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.krol.shajs.Enum.Color;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

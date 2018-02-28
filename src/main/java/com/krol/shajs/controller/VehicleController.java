@@ -1,8 +1,8 @@
-package com.krol.shajs.Controller;
+package com.krol.shajs.controller;
 
-import com.krol.shajs.Dto.VehicleDto;
-import com.krol.shajs.Exceptions.NotFoundException;
-import com.krol.shajs.Service.VehicleService;
+import com.krol.shajs.dto.VehicleDto;
+import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

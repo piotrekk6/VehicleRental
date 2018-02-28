@@ -1,9 +1,9 @@
-package com.krol.shajs.Dto;
+package com.krol.shajs.dto;
 
-import com.krol.shajs.Entity.Bike;
-import com.krol.shajs.Entity.Car;
-import com.krol.shajs.Entity.Vehicle;
-import com.krol.shajs.Enum.VehicleType;
+import com.krol.shajs.entity.Bike;
+import com.krol.shajs.entity.Car;
+import com.krol.shajs.entity.Vehicle;
+import com.krol.shajs.enums_converters.VehicleType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,7 +38,7 @@ public abstract class BikeCarModelMapper {
         return modelMapper.map(editCarDto, Car.class);
     }
 
-    public EditCarDto editCarEntityToDto(Car car) {
+    public EditCarDto carEntityToEditCarDto(Car car) {
         return modelMapper.map(car, EditCarDto.class);
     }
 

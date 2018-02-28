@@ -1,11 +1,9 @@
-package com.krol.shajs.Dto;
+package com.krol.shajs.dto;
 
-import com.krol.shajs.Enum.Color;
+import com.krol.shajs.enums_converters.Color;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter

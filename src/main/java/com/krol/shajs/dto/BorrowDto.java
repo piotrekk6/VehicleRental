@@ -1,4 +1,4 @@
-package com.krol.shajs.Dto;
+package com.krol.shajs.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

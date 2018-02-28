@@ -1,6 +1,6 @@
-package com.krol.shajs.Entity;
+package com.krol.shajs.entity;
 
-import com.krol.shajs.Enum.DateConverter;
+import com.krol.shajs.enums_converters.DateConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

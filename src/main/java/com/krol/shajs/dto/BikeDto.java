@@ -1,15 +1,11 @@
-package com.krol.shajs.Entity;
+package com.krol.shajs.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Bike extends Vehicle {
-
+public class BikeDto extends VehicleDto {
 }

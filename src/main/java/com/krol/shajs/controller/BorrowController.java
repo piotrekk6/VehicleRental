@@ -1,11 +1,11 @@
-package com.krol.shajs.Controller;
+package com.krol.shajs.controller;
 
-import com.krol.shajs.Dto.BorrowDto;
-import com.krol.shajs.Entity.Borrow;
-import com.krol.shajs.Entity.Borrower;
-import com.krol.shajs.Exceptions.NotFoundException;
-import com.krol.shajs.Service.BorrowService;
-import com.krol.shajs.Service.BorrowerService;
+import com.krol.shajs.dto.BorrowDto;
+import com.krol.shajs.entity.Borrow;
+import com.krol.shajs.entity.Borrower;
+import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.service.BorrowService;
+import com.krol.shajs.service.BorrowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

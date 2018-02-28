@@ -1,7 +1,5 @@
-package com.krol.shajs.Dto;
+package com.krol.shajs.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

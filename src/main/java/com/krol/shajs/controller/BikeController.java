@@ -1,8 +1,7 @@
-package com.krol.shajs.Controller;
+package com.krol.shajs.controller;
 
-import com.krol.shajs.Dto.BikeDto;
-import com.krol.shajs.Entity.Bike;
-import com.krol.shajs.Service.BikeService;
+import com.krol.shajs.dto.BikeDto;
+import com.krol.shajs.service.BikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

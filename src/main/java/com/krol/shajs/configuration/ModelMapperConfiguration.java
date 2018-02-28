@@ -1,4 +1,4 @@
-package com.krol.shajs.Configuration;
+package com.krol.shajs.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

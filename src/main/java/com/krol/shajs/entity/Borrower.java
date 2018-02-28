@@ -1,4 +1,4 @@
-package com.krol.shajs.Entity;
+package com.krol.shajs.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

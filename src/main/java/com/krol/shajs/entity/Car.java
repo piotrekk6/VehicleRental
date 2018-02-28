@@ -1,15 +1,13 @@
-package com.krol.shajs.Entity;
+package com.krol.shajs.entity;
 
-import com.krol.shajs.Enum.Color;
-import com.krol.shajs.Enum.ColorConverter;
-import com.krol.shajs.Enum.DateConverter;
-import lombok.Data;
+import com.krol.shajs.enums_converters.Color;
+import com.krol.shajs.enums_converters.ColorConverter;
+import com.krol.shajs.enums_converters.DateConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
