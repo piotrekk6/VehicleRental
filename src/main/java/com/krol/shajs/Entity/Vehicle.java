@@ -1,5 +1,6 @@
 package com.krol.shajs.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.krol.shajs.Enum.Color;
 import lombok.Data;
 import lombok.Getter;

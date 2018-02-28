@@ -15,7 +15,7 @@ export class CarDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private carService: VehicleService, private location: Location) {
   }
-
+ //TODO zrobic edycje samochodu
   ngOnInit() {
     this.getCar();
   }
