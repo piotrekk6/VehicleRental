@@ -18,3 +18,29 @@
   </ul>
 
 
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Vehicle Type</th>
+      <th scope="col">Name</th>
+      <th scope="col">...</th>
+      <th scope="col">...</th>
+      <th scope="col">...</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div *ngFor="let vehicle of vehicles">
+      <tr>
+        <th scope="row">{{vehicle.id}}</th>
+        <td>{{vehicle.vehicleType}}</td>
+        <td>{{vehicle.name}}</td>
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.color}}</td>
+        <td>{{vehicle.productionDate}}</td>
+      </tr>
+    </div>
+    </tbody>
+  </table>
+
+
