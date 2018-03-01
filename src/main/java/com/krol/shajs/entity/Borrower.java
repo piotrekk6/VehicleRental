@@ -16,7 +16,7 @@ public class Borrower {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String firstName;
-    String secondName;
+    private String firstName;
+    private String secondName;
 
 }

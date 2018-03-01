@@ -26,9 +26,9 @@ public abstract class BikeCarModelMapper {
     }
 
     public VehicleDto vehicleEntityToDto(Vehicle vehicle) {
-        if (vehicle.getVehicleType().equals(VehicleType.BIKE.getVehicleType())) {
+        if (vehicle.isBike()) {
             return modelMapper.map(vehicle, BikeDto.class);
-        } else if (vehicle.getVehicleType().equals(VehicleType.CAR.getVehicleType())) {
+        } else if (vehicle.isCar()) {
             return modelMapper.map(vehicle, CarDto.class);
         }
         return null; //TODO return exception

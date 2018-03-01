@@ -1,12 +1,14 @@
 package com.krol.shajs.controller;
 
 import com.krol.shajs.dto.BorrowDto;
+import com.krol.shajs.dto.VehicleIfBorrowed;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,29 +17,26 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping(value = "/api")
+@AllArgsConstructor
 public class BorrowController {
 
-    @Autowired
-    BorrowService borrowService;
-
-    @Autowired
-    BorrowerService borrowerService;
+    private final BorrowService borrowService;
+    private final BorrowerService borrowerService;
 
     @PostMapping(value = "/borrow")
-    public ResponseEntity<Borrow> borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {
-     return ResponseEntity.ok(borrowService.borrowVehicle(borrowDto));
+    @ResponseStatus(HttpStatus.OK)
+    public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {
+        return borrowService.borrowVehicle(borrowDto);
     }
 
     @GetMapping(value = "/show/{date}")
-    public ResponseEntity<Collection> showBorrowForSpecifiedDay(@PathVariable("date") String date)
-    {
-        LocalDate localDate = LocalDate.parse(date);
-        return ResponseEntity.ok(borrowService.getBorrowedVehiclesForSpecifiedDate(localDate));
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<VehicleIfBorrowed> showBorrowForSpecifiedDay(@PathVariable("date") String date) {
+        return borrowService.getBorrowedVehiclesForSpecifiedDate(date);
     }
 
     @PostMapping(value = "addBorrower")
-    public void  addBorrower(@RequestBody Borrower borrower)
-    {
+    public void addBorrower(@RequestBody Borrower borrower) {
         borrowerService.addBorower(borrower);
     }
 

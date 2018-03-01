@@ -3,7 +3,11 @@
 <div><span>id: </span>{{vehicle.id}}</div>
 <!--<div><span>name: </span>{{vehicle.model}}<br>-->
 <label>model:
-  <input [(ngModel)]="vehicle.model" placeholder="name"><br>
+  <input [(ngModel)]="vehicle.name" placeholder="name"><br>
+  {{vehicle.color}}<br>
+  {{vehicle.model}}<br>
+  {{vehicle.productionDate}}<br>
+  {{vehicle.vehicleType}}<br>
 </label>
   <button (click)="save()">save</button>
 </div>

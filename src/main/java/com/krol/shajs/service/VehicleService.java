@@ -1,9 +1,9 @@
-package com.krol.shajs.Service;
+package com.krol.shajs.service;
 
 
-import com.krol.shajs.Dto.VehicleDto;
-import com.krol.shajs.Entity.Vehicle;
-import com.krol.shajs.Exceptions.NotFoundException;
+import com.krol.shajs.dto.VehicleDto;
+import com.krol.shajs.entity.Vehicle;
+import com.krol.shajs.exceptions.NotFoundException;
 
 import java.util.Collection;
 import java.util.List;

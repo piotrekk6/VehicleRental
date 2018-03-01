@@ -1,8 +1,8 @@
-package com.krol.shajs.Service;
+package com.krol.shajs.service;
 
-import com.krol.shajs.Dto.CarDto;
-import com.krol.shajs.Dto.EditCarDto;
-import com.krol.shajs.Entity.Car;
+import com.krol.shajs.dto.CarDto;
+import com.krol.shajs.dto.EditCarDto;
+import com.krol.shajs.entity.Car;
 
 public interface CarService {
 

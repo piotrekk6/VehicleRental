@@ -1,16 +1,16 @@
 package com.krol.shajs.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import javax.persistence.*;
 
+import static com.krol.shajs.enums_converters.VehicleType.BIKE;
+import static com.krol.shajs.enums_converters.VehicleType.CAR;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @DiscriminatorValue(value = "dtype")
 public abstract class Vehicle {
 
@@ -22,4 +22,13 @@ public abstract class Vehicle {
     String vehicleType;
 
     private String name;
+
+
+    public boolean isBike() {
+        return this.getVehicleType().equals(BIKE.getVehicleType());
+    }
+
+    public boolean isCar() {
+        return this.getVehicleType().equals(CAR.getVehicleType());
+    }
 }

@@ -1,4 +1,4 @@
-package com.krol.shajs.Enum;
+package com.krol.shajs.enums_converters;
 
 import lombok.*;
 

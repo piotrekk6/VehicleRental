@@ -1,16 +1,12 @@
-<!--<div *ngIf="selectedCar">
-  <div><span>Selected id: </span>{{selectedCar.id}}</div>
-  <div><span>name: </span><input [(ngModel)]="selectedCar.model" placeholder="name"><br></div>
-</div>-->
-<div>
+<!--<div>
   <label>Vehicle :
     <input #carModel />
   </label>
-  <!-- (click) passes input value to add() and then clears the input -->
+  &lt;!&ndash; (click) passes input value to add() and then clears the input &ndash;&gt;
   <button (click)="add(carModel.value); carModel.value=''">
     add
   </button>
-</div>
+</div>-->
 
   <ul class="cars">
     <li *ngFor="let vehicle of vehicles">
@@ -20,7 +16,5 @@
 <!--      <button class="delete" title="delete vehicle" (click)="delete(vehicle)">X</button>-->
     </li>
   </ul>
-
-<!--<app-vehicle-details [vehicle]="selectedCar"></app-vehicle-details>-->
 
 

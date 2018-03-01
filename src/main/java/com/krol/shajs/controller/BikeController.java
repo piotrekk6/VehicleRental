@@ -22,10 +22,6 @@ public class BikeController {
 
     @GetMapping(value = "/addBike/{name}")
     public void addBike(@PathVariable("name") String name) {
-
-        BikeDto bike = new BikeDto();
-        bike.setName(name);
-        bikeService.addBike(bike);
-
+        bikeService.addBikeByName(name);
     }
 }

@@ -1,15 +1,15 @@
-package com.krol.shajs.Service.Implementation;
+package com.krol.shajs.service.Implementation;
 
-import com.krol.shajs.Dto.BorrowDto;
-import com.krol.shajs.Dto.VehicleIfBorrowed;
-import com.krol.shajs.Entity.Borrow;
-import com.krol.shajs.Entity.Borrower;
-import com.krol.shajs.Entity.Vehicle;
-import com.krol.shajs.Exceptions.NotFoundException;
-import com.krol.shajs.Repository.BorrowRepository;
-import com.krol.shajs.Service.BorrowService;
-import com.krol.shajs.Service.BorrowerService;
-import com.krol.shajs.Service.VehicleService;
+import com.krol.shajs.dto.BorrowDto;
+import com.krol.shajs.dto.VehicleIfBorrowed;
+import com.krol.shajs.entity.Borrow;
+import com.krol.shajs.entity.Borrower;
+import com.krol.shajs.entity.Vehicle;
+import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.repository.BorrowRepository;
+import com.krol.shajs.service.BorrowService;
+import com.krol.shajs.service.BorrowerService;
+import com.krol.shajs.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +43,9 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public Collection<VehicleIfBorrowed> getBorrowedVehiclesForSpecifiedDate(LocalDate date) {
-        Collection<Borrow> borrowCollection = borrowRepository.findByDate(date);
+    public Collection<VehicleIfBorrowed> getBorrowedVehiclesForSpecifiedDate(String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        Collection<Borrow> borrowCollection = borrowRepository.findByDate(localDate);
         Collection<Vehicle> vehiclesAllCollection = vehicleService.getAll();
         Collection<VehicleIfBorrowed> vehicleIfBorrowed = new HashSet<>();
 

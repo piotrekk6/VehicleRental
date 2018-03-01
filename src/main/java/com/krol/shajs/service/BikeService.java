@@ -1,7 +1,8 @@
-package com.krol.shajs.Service;
+package com.krol.shajs.service;
 
-import com.krol.shajs.Dto.BikeDto;
+import com.krol.shajs.dto.BikeDto;
 
 public interface BikeService {
-    public void addBike(BikeDto bike);
+    void addBike(BikeDto bike);
+    void addBikeByName(String name);
 }

@@ -1,10 +1,10 @@
-package com.krol.shajs.Service.Implementation;
+package com.krol.shajs.service.Implementation;
 
-import com.krol.shajs.Entity.Borrower;
-import com.krol.shajs.Enum.ExceptionCode;
-import com.krol.shajs.Exceptions.NotFoundException;
-import com.krol.shajs.Repository.BorrowerRepository;
-import com.krol.shajs.Service.BorrowerService;
+import com.krol.shajs.entity.Borrower;
+import com.krol.shajs.enums_converters.ExceptionCode;
+import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.repository.BorrowerRepository;
+import com.krol.shajs.service.BorrowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

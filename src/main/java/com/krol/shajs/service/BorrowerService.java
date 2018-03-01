@@ -1,12 +1,7 @@
-package com.krol.shajs.Service;
+package com.krol.shajs.service;
 
-import com.krol.shajs.Entity.Borrow;
-import com.krol.shajs.Entity.Borrower;
-import com.krol.shajs.Exceptions.NotFoundException;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.Collection;
+import com.krol.shajs.entity.Borrower;
+import com.krol.shajs.exceptions.NotFoundException;
 
 
 public interface BorrowerService {

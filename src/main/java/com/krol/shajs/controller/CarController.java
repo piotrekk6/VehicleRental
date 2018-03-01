@@ -4,21 +4,18 @@ import com.krol.shajs.dto.CarDto;
 import com.krol.shajs.dto.EditCarDto;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.service.CarService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api")
+@AllArgsConstructor
+@ResponseStatus(HttpStatus.OK)
 public class CarController {
-
-
     private final CarService carService;
-
-    @Autowired
-    public CarController(CarService carService) {
-        this.carService = carService;
-    }
 
     @PostMapping("/addCar/{name}")
     public void addCarByManufacturer(@PathVariable("name") String name) {
@@ -28,13 +25,12 @@ public class CarController {
     }
 
     @RequestMapping(value = "/addCar", method = RequestMethod.POST)
-    public ResponseEntity<Car> addCarByDto(@RequestBody CarDto carDto) {
-
-        return ResponseEntity.ok(carService.addCar(carDto));
+    public Car addCarByDto(@RequestBody CarDto carDto) {
+        return carService.addCar(carDto);
     }
 
     @PutMapping(value = "/editCar")
-    public ResponseEntity<Car> editCar(@RequestBody EditCarDto editCarDto) {
-        return ResponseEntity.ok(carService.editCar(editCarDto));
+    public Car editCar(@RequestBody EditCarDto editCarDto) {
+        return carService.editCar(editCarDto);
     }
 }
