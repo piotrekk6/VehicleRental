@@ -1,0 +1,35 @@
+<div *ngIf="vehicle">
+  <h4>Details</h4>
+  <label>ID</label>
+  <input [(ngModel)]="vehicle.id" class="form-control" [disabled]="isIdInputDisabled">
+  <label>VehicleType</label>
+  <div class="input-group mb-3">
+    <select class="custom-select" id="inputGroupSelect01" [disabled]="isVehicleTypeInputDisabled"
+            [(ngModel)]="vehicle.vehicleType">
+      <option value="Car">Car</option>
+      <option value="Bike">Bike</option>
+    </select>
+  </div>
+  <label>Name</label>
+  <input [(ngModel)]="vehicle.name" class="form-control" [disabled]="isNameInputDisabled">
+  <label>Model</label>
+  <input [(ngModel)]="vehicle.model" class="form-control" [disabled]="isModelInputDisabled">
+  <label>Color</label>
+  <div class="input-group mb-3">
+    <select class="custom-select" id="inputGroupSelect02" [disabled]="isColorInputDisabled" [(ngModel)]="vehicle.color">
+      <option value="RED">RED</option>
+      <option value="GREEN">GREEN</option>
+      <option value="BLUE">BLUE</option>
+      <option value="ORANGE">ORANGE</option>
+      <option value="PURPLE">PURPLE</option>
+      <option value="BLACK">BLACK</option>
+      <option value="BROWN">BROWN</option>
+      <option value="YELLOW">YELLOW</option>
+    </select>
+  </div>
+  <label>Production Date</label>
+  <input type="date" [(ngModel)]="vehicle.productionDate" class="form-control"
+         [disabled]="isProductionDateInputDisabled">
+
+  <button (click)="save()" *ngIf="isButtonSaveEnabled" class="btn btn-info">Save</button>
+</div>

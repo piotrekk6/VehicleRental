@@ -19,6 +19,5 @@ public class CustomExceptionHandler {
     protected Map<String,String> handleNotFoundException(NotFoundException e)
     {
         return Collections.singletonMap("Error", e.getCode().getCode());
-
     }
 }

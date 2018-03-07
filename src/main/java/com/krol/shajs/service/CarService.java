@@ -7,6 +7,6 @@ import com.krol.shajs.entity.Car;
 public interface CarService {
 
     Car addCar(CarDto car);
-    Car editCar(EditCarDto editCarDto);
+    void editCar(EditCarDto editCarDto);
 
 }

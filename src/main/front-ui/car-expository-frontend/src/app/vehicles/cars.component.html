@@ -1,0 +1,39 @@
+<!--<div>
+  <label>Vehicle :
+    <input #carModel />
+  </label>
+  &lt;!&ndash; (click) passes input value to add() and then clears the input &ndash;&gt;
+  <button (click)="add(carModel.value); carModel.value=''">
+    add
+  </button>
+</div>-->
+
+<input type="date" class="form-control" >
+
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Vehicle Type</th>
+    <th scope="col">Name</th>
+    <th scope="col">Model</th>
+    <th scope="col">Color</th>
+    <th scope="col">Production date</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let vehicle of vehicles" (click)="onSelect(vehicle)" [class.selected]="vehicle === selectedVehicle">
+    <th scope="row">{{vehicle.id}}</th>
+    <td>{{vehicle.vehicleType}}</td>
+    <td>{{vehicle.name}}</td>
+    <td>{{vehicle.model}}</td>
+    <td>{{vehicle.color}}</td>
+    <td>{{vehicle.productionDate}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<input type="button" class="btn btn-success" value="Add" routerLink="/addCar">
+<input type="button" class="btn btn-info" value="Edit" [disabled]="isEditButtonDisabled" routerLink="/editCar/{{selectedId}}">
+<input type="button" class="btn btn-danger" value="Delete" [disabled]="isDeleteButtonDisabled" (click)=delete(selectedVehicle)>
+<input type="button" class="btn btn-dark" value="Details" [disabled]="isDetailsButtonDisabled" routerLink="/details/{{selectedId}}">

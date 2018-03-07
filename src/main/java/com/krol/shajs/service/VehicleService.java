@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface VehicleService {
 
-    List<VehicleDto> showAll();
-    void deleteById(Long id);
+    List<VehicleDto> getAllVehiclesDtoOrderById();
+    void deleteById(Long id) throws NotFoundException;
     VehicleDto getVehicleDtoById(Long id) throws NotFoundException;
     Vehicle getVehicleByID(Long id) throws NotFoundException;
     Collection<Vehicle> getAll();

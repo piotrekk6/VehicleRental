@@ -25,12 +25,12 @@ public class CarController {
     }
 
     @RequestMapping(value = "/addCar", method = RequestMethod.POST)
-    public Car addCarByDto(@RequestBody CarDto carDto) {
-        return carService.addCar(carDto);
+    public void addCarByDto(@RequestBody CarDto carDto) {
+        carService.addCar(carDto);
     }
 
     @PutMapping(value = "/editCar")
-    public Car editCar(@RequestBody EditCarDto editCarDto) {
-        return carService.editCar(editCarDto);
+    public void editCar(@RequestBody EditCarDto editCarDto) {
+        carService.editCar(editCarDto);
     }
 }

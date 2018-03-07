@@ -71,3 +71,7 @@ button.delete {
   background-color: gray !important;
   color: white;
 }
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}

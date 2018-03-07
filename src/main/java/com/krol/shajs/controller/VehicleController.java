@@ -4,7 +4,6 @@ import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.VehicleService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,16 +20,16 @@ public class VehicleController {
 
     @RequestMapping(value = "/showAll", method = RequestMethod.GET)
     public Collection<VehicleDto> showAll() {
-        return vehicleService.showAll();
+        return vehicleService.getAllVehiclesDtoOrderById();
     }
 
-    @DeleteMapping
+    @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteById(@PathVariable("id") String id) {
+    public void deleteById(@PathVariable("id") String id) throws NotFoundException {
         vehicleService.deleteById(Long.valueOf(id));
     }
 
-    @GetMapping
+    @GetMapping(value = "/details/{id}")
     public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
         return vehicleService.getVehicleDtoById(Long.valueOf(id));
     }

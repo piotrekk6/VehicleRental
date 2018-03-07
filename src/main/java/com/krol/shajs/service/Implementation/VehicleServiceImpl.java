@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_NOT_FOUND;
+
 @Service
 public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleService {
 
@@ -27,15 +29,15 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     }
 
     @Override
-    public List<VehicleDto> showAll() {
-        List<Vehicle> vehicleResultList = vehicleRepository.findAll();
+    public List<VehicleDto> getAllVehiclesDtoOrderById() {
+        List<Vehicle> vehicleResultList = vehicleRepository.findAllByOrderById();
 
         return vehicleResultList.stream().map(vehicle -> this.vehicleEntityToDto(vehicle)).collect(Collectors.toList());
     }
 
     @Override
-    public void deleteById(Long id) {
-        vehicleRepository.delete(id);
+    public void deleteById(Long id) throws NotFoundException {
+        vehicleRepository.delete(getVehicleByID(id));
     }
 
     @Override
@@ -47,13 +49,13 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
 
     public Vehicle getVehicleByID(Long id) throws NotFoundException {
         Vehicle vehicle = vehicleRepository.findOne(id);
-        if (vehicle == null) throw new NotFoundException(ExceptionCode.VEHICLE_NOT_FOUND);
+        if (vehicle == null) throw new NotFoundException(VEHICLE_NOT_FOUND);
         else return vehicle;
-
     }
 
     @Override
     public Collection<Vehicle> getAll() {
         return vehicleRepository.findAll();
     }
+
 }
