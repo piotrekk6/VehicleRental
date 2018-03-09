@@ -31,4 +31,5 @@ public abstract class Vehicle {
     public boolean isCar() {
         return this.getVehicleType().equals(CAR.getVehicleType());
     }
+
 }

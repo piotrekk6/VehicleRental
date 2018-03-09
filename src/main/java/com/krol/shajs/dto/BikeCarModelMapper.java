@@ -41,5 +41,4 @@ public abstract class BikeCarModelMapper {
     public EditCarDto carEntityToEditCarDto(Car car) {
         return modelMapper.map(car, EditCarDto.class);
     }
-
-}
+    }

@@ -25,8 +25,8 @@ public class BorrowController {
 
     @PostMapping(value = "/borrow")
     @ResponseStatus(HttpStatus.OK)
-    public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {
-        return borrowService.borrowVehicle(borrowDto);
+    public ResponseEntity<Borrow> borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {
+        return ResponseEntity.ok(borrowService.borrowVehicle(borrowDto));
     }
 
     @GetMapping(value = "/show/{date}")
@@ -35,9 +35,22 @@ public class BorrowController {
         return borrowService.getBorrowedVehiclesForSpecifiedDate(date);
     }
 
+    @GetMapping(value = "/show")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<Borrow> showAllBorrows() {
+        return borrowService.getAllBorrows();
+    }
+
     @PostMapping(value = "addBorrower")
+    @ResponseStatus(HttpStatus.OK)
     public void addBorrower(@RequestBody Borrower borrower) {
         borrowerService.addBorower(borrower);
+    }
+
+    @GetMapping(value = "/getBorrowers")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<Borrower> getBorrowers() {
+        return borrowerService.findAll(); //TODO return DTO as endpoint
     }
 
 }

@@ -3,6 +3,7 @@ import {Vehicle} from '../Vehicle';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Params} from '@angular/router';
 import {VehicleService} from '../vehicle.service';
+import {Borrower} from "../Borrower";
 
 @Component({
   selector: 'app-car-details',
@@ -17,8 +18,12 @@ export class CarDetailsComponent implements OnInit {
   isColorInputDisabled: boolean;
   isIdInputDisabled: boolean;
   isVehicleTypeInputDisabled: boolean;
-  isButtonSaveEnabled: boolean;
+  isBorrowButtonVisible: boolean;
+  isButtonSaveDisabled: boolean;
+  isButtonSaveVisible: boolean;
+  isSelectBorrowerVisible: boolean;
   action: string;
+  borrowers: Borrower[];
 
   @Input() vehicle: Vehicle;
 
@@ -28,6 +33,7 @@ export class CarDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.action = params['action'])
     console.log("current url: " + this.action);
+    this.getBorrowers();
     if (this.action === 'details') {
       this.getCar();
       this.createDetailsForm();
@@ -45,6 +51,10 @@ export class CarDetailsComponent implements OnInit {
     this.vehicleService.getVehicle(id).subscribe(car => this.vehicle = car);
   }
 
+  getBorrowers(): void {
+    this.vehicleService.getBorrowers().subscribe(borrowers => this.borrowers = borrowers);
+  }
+
   goBack(): void {
     this.location.back();
   }
@@ -58,6 +68,17 @@ export class CarDetailsComponent implements OnInit {
     }
   }
 
+  onVehicleTypeChanged(vehicleType: string) {
+    if (vehicleType === 'Bike') {
+      this.setBikeOnlyInputsEnabled(true);
+      if (this.action === 'addCar') this.isButtonSaveDisabled = false;
+    }
+    else if (vehicleType === 'Car') {
+      this.setBikeOnlyInputsEnabled(false);
+    }
+
+  }
+
   private createDetailsForm(): void {
     this.isProductionDateInputDisabled = true;
     this.isModelInputDisabled = true;
@@ -65,7 +86,10 @@ export class CarDetailsComponent implements OnInit {
     this.isIdInputDisabled = true;
     this.isVehicleTypeInputDisabled = true;
     this.isNameInputDisabled = true;
-    this.isButtonSaveEnabled = false;
+    this.isButtonSaveVisible = false;
+    this.isSelectBorrowerVisible = true;
+    this.isBorrowButtonVisible = true;
+    this.isSelectBorrowerVisible = true;
   }
 
   private createEditForm(): void {
@@ -73,9 +97,12 @@ export class CarDetailsComponent implements OnInit {
     this.isModelInputDisabled = false;
     this.isColorInputDisabled = false;
     this.isIdInputDisabled = true;
-    this.isVehicleTypeInputDisabled = true;
+    this.isVehicleTypeInputDisabled = false;
     this.isNameInputDisabled = false;
-    this.isButtonSaveEnabled = true;
+    this.isButtonSaveVisible = true;
+    this.isSelectBorrowerVisible = false;
+    this.isBorrowButtonVisible = false;
+
   }
 
   private createAddForm(): void {
@@ -85,6 +112,17 @@ export class CarDetailsComponent implements OnInit {
     this.isIdInputDisabled = true;
     this.isVehicleTypeInputDisabled = false;
     this.isNameInputDisabled = false;
-    this.isButtonSaveEnabled = true;
+    this.isButtonSaveVisible = true;
+    this.isSelectBorrowerVisible = false;
+    this.isBorrowButtonVisible = false;
+    this.isSelectBorrowerVisible = false;
+  }
+
+  setBikeOnlyInputsEnabled(status: boolean): void {
+    this.isColorInputDisabled
+      = this.isModelInputDisabled
+      = this.isProductionDateInputDisabled
+      = this.isButtonSaveDisabled
+      = status;
   }
 }

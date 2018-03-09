@@ -20,6 +20,7 @@ public class Borrow {
     private Long id;
 
     @Convert(converter = DateConverter.class)
+    @NotNull
     private LocalDate date;
     
     @OneToOne(cascade = CascadeType.ALL)
@@ -31,10 +32,11 @@ public class Borrow {
     private Borrower borrower;
 
 
-    public void borrow(Borrower borrower, Vehicle vehicle)
+    public void borrow(Borrower borrower, Vehicle vehicle, LocalDate date)
     {
         this.setBorrower(borrower);
         this.setVehicle(vehicle);
+        this.setDate(date);
     }
 
 }

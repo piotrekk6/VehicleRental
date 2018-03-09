@@ -6,6 +6,7 @@ import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {logger} from "codelyzer/util/logger";
+import {Borrower} from './Borrower';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -21,6 +22,7 @@ export class VehicleService {
   private deleteCarUlr = 'api/delete';
   private addCarUrl = 'api/addCar';
   private addBikeUrl = 'api/addBike';
+  private getBorrowersUrl = 'api/getBorrowers'
 
   constructor(private messageService: MessageService, private http: HttpClient) {
   }
@@ -42,7 +44,7 @@ export class VehicleService {
     this.messageService.add('VehicleService: Cars fetched');
 
     return this.http.get<Vehicle[]>(this.carsUrl).pipe(
-      tap(cars => this.log(`fetched cars (tap)`)), catchError(this.handleError('getCars', []))
+      tap(cars => this.log(`fetched cars`)), catchError(this.handleError('getCars', []))
     );
   }
 
@@ -59,6 +61,12 @@ export class VehicleService {
       catchError(this.handleError<any>('updatedCar'))
     );
 
+  }
+
+  getBorrowers(): Observable<any>
+  {
+    return this.http.get<Borrower[]>(this.getBorrowersUrl).pipe(
+      tap(borrowers => this.log(`fetched borrowers`)), catchError(this.handleError('getBorrowers', [])));
   }
 
   searchCars(term: string): Observable<Vehicle[]> {

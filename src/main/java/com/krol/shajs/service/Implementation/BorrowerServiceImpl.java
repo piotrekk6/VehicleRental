@@ -8,6 +8,8 @@ import com.krol.shajs.service.BorrowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BorrowerServiceImpl implements BorrowerService {
 
@@ -24,5 +26,10 @@ public class BorrowerServiceImpl implements BorrowerService {
     @Override
     public void addBorower(Borrower borrower) {
         borrowerRepository.save(borrower);
+    }
+
+    @Override
+    public List<Borrower> findAll() {
+        return borrowerRepository.findAll();
     }
 }

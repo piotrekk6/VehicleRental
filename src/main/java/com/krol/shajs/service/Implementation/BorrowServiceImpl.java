@@ -1,10 +1,12 @@
 package com.krol.shajs.service.Implementation;
 
+import com.krol.shajs.dto.BikeCarModelMapper;
 import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.dto.VehicleIfBorrowed;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.entity.Vehicle;
+import com.krol.shajs.enums_converters.ExceptionCode;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.BorrowRepository;
 import com.krol.shajs.service.BorrowService;
@@ -17,8 +19,11 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
+import static com.krol.shajs.enums_converters.ExceptionCode.BORROW_NOT_FOUND;
+import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_ALREADY_BORROWED;
+
 @Service
-public class BorrowServiceImpl implements BorrowService {
+public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowService {
 
     private final BorrowRepository borrowRepository;
     private final BorrowerService borrowerService;
@@ -35,11 +40,14 @@ public class BorrowServiceImpl implements BorrowService {
     public Borrow borrowVehicle(BorrowDto borrowDto) throws NotFoundException {
         Borrower borrower = borrowerService.getBorrowerById(borrowDto.getBorrowerId());
         Vehicle vehicle = vehicleService.getVehicleByID(borrowDto.getVehicleId());
-        Borrow borrow = new Borrow();
-        borrow.setVehicle(vehicle);
-        borrow.setBorrower(borrower);
-        borrow.setDate(borrowDto.getDate());
-        return borrowRepository.save(borrow);
+        boolean existsByDateAndVehicle = borrowRepository.existsByDateAndVehicle(borrowDto.getDate(), vehicle);
+        if (!existsByDateAndVehicle) {
+            Borrow borrow = new Borrow();
+            borrow.borrow(borrower, vehicle, borrowDto.getDate());
+            return borrowRepository.save(borrow);
+        } else throw new NotFoundException(VEHICLE_ALREADY_BORROWED);
+
+
     }
 
     @Override
@@ -60,6 +68,12 @@ public class BorrowServiceImpl implements BorrowService {
         }
         return vehicleIfBorrowed;
 
+    }
+
+    @Override
+    public Collection<Borrow> getAllBorrows() {
+        Collection<VehicleIfBorrowed> borrows = new HashSet<>();
+        return borrowRepository.findAll();
     }
 
 

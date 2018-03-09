@@ -11,5 +11,6 @@ import java.util.Collection;
 public interface BorrowService {
     Borrow borrowVehicle(BorrowDto borrowDto) throws NotFoundException;
     Collection<VehicleIfBorrowed> getBorrowedVehiclesForSpecifiedDate(String date);
+    Collection<Borrow> getAllBorrows();
 
 }
