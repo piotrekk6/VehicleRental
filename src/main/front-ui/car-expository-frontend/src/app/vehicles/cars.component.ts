@@ -27,7 +27,6 @@ export class CarsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getVehicles();
     this.enableButtonsIfVehicleSelected();
   }
 

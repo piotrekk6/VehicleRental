@@ -1,3 +1,5 @@
+<input type="date" class="form-control"  [ngModel] ="borrowDate" (blur)="getBorrowedVehicles($event.target.value)">
+
 <table class="table">
   <thead class="thead-dark">
   <tr>
@@ -6,17 +8,17 @@
     <th scope="col">Name</th>
     <th scope="col">Model</th>
     <th scope="col">Color</th>
-    <th scope="col">Production date</th>
+    <th scope="col">Borrower Name</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let vehicle of vehicles" (click)="onSelect(vehicle)" [class.selected]="vehicle === selectedVehicle">
-    <td>{{vehicle.id}}</td>
+  <tr *ngFor="let vehicle of borrows" (click)="onSelect(vehicle)" [class.selected]="vehicle === selectedVehicle">
+    <td></td>
     <td>{{vehicle.vehicleType}}</td>
-    <td>{{vehicle.name}}</td>
+    <td>{{vehicle.vehicleName}}</td>
     <td>{{vehicle.model}}</td>
     <td>{{vehicle.color}}</td>
-    <td>{{vehicle.productionDate}}</td>
+    <td>{{vehicle.borrowerName}}</td>
   </tr>
   </tbody>
 </table>
