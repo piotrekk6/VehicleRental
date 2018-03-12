@@ -7,6 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {logger} from "codelyzer/util/logger";
 import {Borrower} from './Borrower';
+import {Borrow} from "./Borrow";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -22,7 +23,8 @@ export class VehicleService {
   private deleteCarUlr = 'api/delete';
   private addCarUrl = 'api/addCar';
   private addBikeUrl = 'api/addBike';
-  private getBorrowersUrl = 'api/getBorrowers'
+  private BorrowersUrl = 'api/getBorrowers'
+  private BorrowedVehiclesUrl = 'api/show'
 
   constructor(private messageService: MessageService, private http: HttpClient) {
   }
@@ -60,23 +62,19 @@ export class VehicleService {
       tap(x => this.log(`updated car id=${car.id}`)),
       catchError(this.handleError<any>('updatedCar'))
     );
-
   }
 
   getBorrowers(): Observable<any>
   {
-    return this.http.get<Borrower[]>(this.getBorrowersUrl).pipe(
+    return this.http.get<Borrower[]>(this.BorrowersUrl).pipe(
       tap(borrowers => this.log(`fetched borrowers`)), catchError(this.handleError('getBorrowers', [])));
   }
 
-  searchCars(term: string): Observable<Vehicle[]> {
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
-    }
-    return this.http.get<Vehicle[]>(`api/cars/?name=${term}`).pipe(
-      tap(_ => this.log(`found cars matching "${term}"`)),
-      catchError(this.handleError<Vehicle[]>('searchCars', [])));
+  getBorrowedVehicles(date: string): Observable<any>
+  {
+    const url = `${this.BorrowedVehiclesUrl}/${date}`;
+    return this.http.get<Borrow[]>(url).pipe(
+      tap(borrowers => this.log(`fetched borrowed Vehicles`)), catchError(this.handleError('getBorrowers', [])));
   }
 
   deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {
@@ -100,4 +98,13 @@ export class VehicleService {
       return of(result as T);
     };
   }
+/*  searchCars(term: string): Observable<Vehicle[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Vehicle[]>(`api/cars/?name=${term}`).pipe(
+      tap(_ => this.log(`found cars matching "${term}"`)),
+      catchError(this.handleError<Vehicle[]>('searchCars', [])));
+  }*/
 }

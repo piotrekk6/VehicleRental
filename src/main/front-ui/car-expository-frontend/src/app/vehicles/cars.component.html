@@ -1,5 +1,3 @@
-<input type="date" class="form-control" >
-
 <table class="table">
   <thead class="thead-dark">
   <tr>
@@ -13,7 +11,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let vehicle of vehicles" (click)="onSelect(vehicle)" [class.selected]="vehicle === selectedVehicle">
-    <th scope="row">{{vehicle.id}}</th>
+    <td>{{vehicle.id}}</td>
     <td>{{vehicle.vehicleType}}</td>
     <td>{{vehicle.name}}</td>
     <td>{{vehicle.model}}</td>

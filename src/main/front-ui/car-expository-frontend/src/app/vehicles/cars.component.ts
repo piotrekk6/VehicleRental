@@ -4,6 +4,7 @@ import {Vehicle} from '../Vehicle';
 import {MessageService} from '../message.service';
 import {logger} from "codelyzer/util/logger";
 import {isBoolean} from "util";
+import {Borrow} from "../Borrow";
 
 
 @Component({
@@ -15,6 +16,8 @@ export class CarsComponent implements OnInit {
   vehicles: Vehicle[];
   selectedVehicle: Vehicle;
   selectedId: number;
+  borrowDate: string;
+  borrows: Borrow[];
 
   isEditButtonDisabled: boolean;
   isDeleteButtonDisabled: boolean;
@@ -38,6 +41,11 @@ export class CarsComponent implements OnInit {
 
   getVehicles(): void {
     this.vehicleService.getCars().subscribe(cars => this.vehicles = cars);
+  }
+
+  getBorrowedVehicles(date: string)
+  {
+    this.vehicleService.getBorrowedVehicles(date).subscribe(borrows => this.borrows = borrows);
   }
 
   add(name: string): void {
