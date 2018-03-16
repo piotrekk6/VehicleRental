@@ -1,5 +1,5 @@
-<input type="date" class="form-control"  [ngModel] ="borrowDate" (blur)="getBorrowedVehicles($event.target.value)">
-
+<input type="date" class="form-control" [(ngModel)]="borrowDate"
+         (blur)="getBorrowedVehicles($event.target.value)">
 <table class="table">
   <thead class="thead-dark">
   <tr>
@@ -9,21 +9,24 @@
     <th scope="col">Model</th>
     <th scope="col">Color</th>
     <th scope="col">Borrower Name</th>
+    <th scope="col">Borrow Date</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let vehicle of borrows" (click)="onSelect(vehicle)" [class.selected]="vehicle === selectedVehicle">
-    <td></td>
-    <td>{{vehicle.vehicleType}}</td>
-    <td>{{vehicle.vehicleName}}</td>
-    <td>{{vehicle.model}}</td>
-    <td>{{vehicle.color}}</td>
-    <td>{{vehicle.borrowerName}}</td>
-  </tr>
+
+<!--  <tr *ngFor="let borrow of borrows" (click)="onSelect(borrow)" [class.selected]="borrow === selectedBorrow">
+    <td>{{borrow.id}}</td>
+    <td>{{borrow.vehicleDto.vehicleType || '-'}}</td>
+    <td>{{borrow.vehicleDto.name || '-'}}</td>
+    <td>{{borrow.vehicleDto.model || '-'}}</td>
+    <td>{{borrow.vehicleDto.color || '-'}}</td>
+    <td>{{borrow.borrowerDto.firstName || '-'}} {{borrow.borrowerDto.secondName}}</td>
+    <td>{{borrow.date || '-'}}</td>
+  </tr>-->
   </tbody>
 </table>
 
-<input type="button" class="btn btn-success" value="Add" routerLink="/addCar">
-<input type="button" class="btn btn-info" value="Edit" [disabled]="isEditButtonDisabled" routerLink="/editCar/{{selectedId}}">
-<input type="button" class="btn btn-danger" value="Delete" [disabled]="isDeleteButtonDisabled" (click)=delete(selectedVehicle)>
+<input type="button" class="btn btn-success" value="Add Vehicle" routerLink="/addCar">
+<input type="button" class="btn btn-info" value="Edit Vehicle" [disabled]="isEditButtonDisabled" routerLink="/editCar/{{selectedId}}">
+<input type="button" class="btn btn-danger" value="Delete Vehicle" [disabled]="isDeleteButtonDisabled" (click)="delete(selectedBorrow)">
 <input type="button" class="btn btn-dark" value="Details" [disabled]="isDetailsButtonDisabled" routerLink="/details/{{selectedId}}">

@@ -5,6 +5,8 @@ import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Vehicle;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -42,7 +44,8 @@ public abstract class BikeCarModelMapper {
         return modelMapper.map(car, EditCarDto.class);
     }
 
-    protected BorrowedVehicleDto borrowEntityToDto(Borrow borrow) {
-        return modelMapper.map(borrow, BorrowedVehicleDto.class);
+    protected VehicleBorrowDto borrowEntityToDto(Vehicle vehicle) {
+        VehicleDto vehicleDto = vehicleEntityToDto(vehicle);
+        return modelMapper.map(vehicleDto, VehicleBorrowDto.class);
     }
 }

@@ -1,20 +1,21 @@
 package com.krol.shajs.dto;
 
 import com.krol.shajs.enums_converters.Color;
-import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class CarDto extends VehicleDto {
+@Data
+public class VehicleBorrowDto {
+
+    private Long id;
+
 
     private String model;
     private Color color;
     private LocalDate productionDate;
 
+    private LocalDate borrowDate;
+    private String borrowerName;
 }

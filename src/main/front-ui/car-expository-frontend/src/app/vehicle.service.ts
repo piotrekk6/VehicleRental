@@ -77,8 +77,7 @@ export class VehicleService {
       tap(borrowers => this.log(`fetched borrowed Vehicles`)), catchError(this.handleError('getBorrowers', [])));
   }
 
-  deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {
-    const id = typeof vehicle === 'number' ? vehicle : vehicle.id;
+  deleteVehicle(id: number): Observable<Vehicle> {
     const url = `${this.deleteCarUlr}/${id}`;
 
     return this.http.delete<Vehicle>(url, httpOptions).pipe(

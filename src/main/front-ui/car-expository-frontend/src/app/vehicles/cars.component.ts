@@ -6,7 +6,6 @@ import {logger} from "codelyzer/util/logger";
 import {isBoolean} from "util";
 import {Borrow} from "../Borrow";
 
-
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
@@ -14,7 +13,7 @@ import {Borrow} from "../Borrow";
 })
 export class CarsComponent implements OnInit {
   vehicles: Vehicle[];
-  selectedVehicle: Vehicle;
+  selectedBorrow: Borrow;
   selectedId: number;
   borrowDate: string;
   borrows: Borrow[];
@@ -28,22 +27,26 @@ export class CarsComponent implements OnInit {
 
   ngOnInit() {
     this.enableButtonsIfVehicleSelected();
+    this.borrowDate = new Date().toISOString().slice(0,10);
+    this.borrowDate = new Date("2018-08-10").toISOString().slice(0,10);
+    this.getBorrowedVehicles(this.borrowDate);
+
+    console.log(this.borrowDate);
   }
 
-  onSelect(vehicle: Vehicle): void {
-    this.selectedVehicle = vehicle;
-    this.selectedId = vehicle.id;
+  onSelect(borrow: Borrow): void {
+    this.selectedBorrow = borrow;
+    this.selectedId = borrow.vehicleDto.id;
     this.enableButtonsIfVehicleSelected();
 
-    console.log('Clicked: ' + this.selectedVehicle.id);
+    console.log('Clicked: ' + this.selectedBorrow.id);
   }
 
   getVehicles(): void {
     this.vehicleService.getCars().subscribe(cars => this.vehicles = cars);
   }
 
-  getBorrowedVehicles(date: string)
-  {
+  getBorrowedVehicles(date: string) {
     this.vehicleService.getBorrowedVehicles(date).subscribe(borrows => this.borrows = borrows);
   }
 
@@ -59,12 +62,12 @@ export class CarsComponent implements OnInit {
 
   delete(vehicle: Vehicle): void {
     this.vehicles = this.vehicles.filter(c => c !== vehicle);
-    this.vehicleService.deleteVehicle(vehicle).subscribe();
+    this.vehicleService.deleteVehicle(this.selectedId).subscribe();
   }
 
   private enableButtonsIfVehicleSelected() {
     if (this.isVehicleSelected()) {
-      this.enableEditButton(this.selectedVehicle);
+      this.enableEditButton(this.selectedBorrow);
       this.enableDeleteDetailsButtons()
     }
     else {
@@ -79,12 +82,12 @@ export class CarsComponent implements OnInit {
   }
 
   private isVehicleSelected(): boolean {
-    return this.selectedVehicle != null;
+    return this.selectedBorrow != null;
   }
 
-  private enableEditButton(vehicle: Vehicle): void {
-    if(vehicle.vehicleType === 'Car') this.isEditButtonDisabled=false;
-    else this.isEditButtonDisabled=true;
+  private enableEditButton(borrow: Borrow): void {
+    if (borrow.vehicleDto.vehicleType === 'Car') this.isEditButtonDisabled = false;
+    else this.isEditButtonDisabled = true;
   }
 
   private enableDeleteDetailsButtons(): void {

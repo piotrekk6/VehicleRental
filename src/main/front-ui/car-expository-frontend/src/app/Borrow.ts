@@ -1,9 +1,9 @@
+import {vehicleDto} from "./vehicleDto";
+import {borrowerDto} from "./borrowerDto";
+
 export class Borrow{
-  vehicleName: string;
-  vehicleType: string;
-  model: string;
-  color: string;
-  productionDate: string;
-  borrowerName: string;
-  borrowDate: string;
+  id: number;
+  date: string;
+  vehicleDto: vehicleDto;
+  borrowerDto: borrowerDto;
 }

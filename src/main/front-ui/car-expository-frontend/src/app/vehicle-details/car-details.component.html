@@ -31,7 +31,7 @@
   <label>Production Date</label>
   <input type="date" [(ngModel)]="vehicle.productionDate" class="form-control"
          [disabled]="isProductionDateInputDisabled">
-  <label>Borrower Name</label>
+  <label *ngIf="isSelectBorrowerVisible">Borrower Name</label>
   <div class="input-group mb-3">
     <select class="custom-select" id="inputGroupSelect03" *ngIf="isSelectBorrowerVisible">
       <option *ngFor="let borrower of borrowers" value="{{borrower.id}}">Id: {{borrower.id}} Name: {{borrower.firstName}}</option>

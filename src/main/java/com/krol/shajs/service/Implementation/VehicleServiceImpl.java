@@ -31,8 +31,7 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     @Override
     public List<VehicleDto> getAllVehiclesDtoOrderById() {
         List<Vehicle> vehicleResultList = vehicleRepository.findAllByOrderById();
-
-        return vehicleResultList.stream().map(vehicle -> this.vehicleEntityToDto(vehicle)).collect(Collectors.toList());
+        return vehicleResultList.stream().map(this::vehicleEntityToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -43,7 +42,6 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     @Override
     public VehicleDto getVehicleDtoById(Long id) throws NotFoundException {
         Vehicle vehicle = getVehicleByID(id);
-
         return vehicleEntityToDto(vehicle);
     }
 

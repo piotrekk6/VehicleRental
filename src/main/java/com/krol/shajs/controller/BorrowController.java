@@ -2,6 +2,7 @@ package com.krol.shajs.controller;
 
 import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.dto.BorrowedVehicleDto;
+import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.exceptions.NotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -30,13 +32,13 @@ public class BorrowController {
 
     @GetMapping(value = "/show/{date}")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<BorrowedVehicleDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) {
+    public List<VehicleDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws NotFoundException {
         return borrowService.getBorrowedVehiclesForSpecifiedDate(date);
     }
 
-    @GetMapping(value = "/show")
+    @GetMapping(value = "/showAllBorrows")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<Borrow> showAllBorrows() {
+    public Collection<BorrowedVehicleDto> showAllBorrows() {
         return borrowService.getAllBorrows();
     }
 
