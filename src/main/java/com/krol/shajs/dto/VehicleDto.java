@@ -15,6 +15,4 @@ public abstract class VehicleDto {
     @JsonProperty(access =  JsonProperty.Access.READ_ONLY)
     private String vehicleType;
     private String name;
-
-    private boolean isBorrowed;
 }

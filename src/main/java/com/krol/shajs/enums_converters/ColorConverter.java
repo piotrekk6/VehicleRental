@@ -1,10 +1,29 @@
 package com.krol.shajs.enums_converters;
 
+import com.google.common.collect.ImmutableMap;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter
+import static com.krol.shajs.enums_converters.Color.*;
+
+@Converter(autoApply = true)
 public class ColorConverter implements AttributeConverter<Color, String> {
+
+/*    private ImmutableMap<Color, String> colorToStringMap = ImmutableMap.builder()
+                                                                       .put(RED, "red")
+                                                                       .put(BLUE, "blue")
+                                                                       .put(GREEN, "green")
+                                                                       .put(BLACK, "black")
+                                                                       .put(BROWN, "brown")
+                                                                       .put(ORANGE, "orange")
+                                                                       .put(PURPLE, "purple")
+                                                                       .put(YELLOW, "yellow")
+                                                                       .build();*/
+
+
+    /*RED, "red", BLUE, "blue", GREEN, "green",
+            BLACK, "black", BROWN, "brown", ORANGE, "orange", PURPLE, "purple", YELLOW, "yellow"*/
 
     @Override
     public String convertToDatabaseColumn(Color color) {
@@ -39,7 +58,7 @@ public class ColorConverter implements AttributeConverter<Color, String> {
         else {
             switch (s) {
                 case "red":
-                    return Color.RED;
+                    return RED;
                 case "blue":
                     return Color.BLUE;
                 case "green":

@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api")
 public class BikeController {
 
-
     private final BikeService bikeService;
 
     @Autowired
     public BikeController(BikeService bikeService) {
         this.bikeService = bikeService;
-    }
+    } // wstrzykiwanie lombokiem
 
     @GetMapping(value = "/addBike/{name}")
     public void addBike(@PathVariable("name") String name) {
         bikeService.addBikeByName(name);
-    }
+    } // nazewnictwo
 }

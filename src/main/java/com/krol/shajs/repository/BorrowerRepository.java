@@ -10,4 +10,5 @@ import java.util.List;
 public interface BorrowerRepository extends JpaRepository<Borrower, Long> {
 
     List<Borrower> findAll();
+
 }

@@ -1,14 +1,15 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Vehicle} from '../Vehicle';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Params} from '@angular/router';
 import {VehicleService} from '../vehicle.service';
 import {Borrower} from "../Borrower";
+import {BorrowDto} from "../BorrowDto";
 
 @Component({
   selector: 'app-car-details',
-  templateUrl: './car-details.component.html',
-  styleUrls: ['./car-details.component.css']
+  templateUrl: './vehicle-details.component.html',
+  styleUrls: ['./vehicle-details.component.css']
 })
 export class CarDetailsComponent implements OnInit {
 
@@ -24,8 +25,11 @@ export class CarDetailsComponent implements OnInit {
   isSelectBorrowerVisible: boolean;
   action: string;
   borrowers: Borrower[];
+  selectedBorrower: Borrower;
+  borrow: BorrowDto;
 
   @Input() vehicle: Vehicle;
+
 
   constructor(private route: ActivatedRoute, private vehicleService: VehicleService, private location: Location) {
   }
@@ -33,6 +37,7 @@ export class CarDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.action = params['action'])
     console.log("current url: " + this.action);
+
     this.getBorrowers();
     if (this.action === 'details') {
       this.getCar();
@@ -44,6 +49,7 @@ export class CarDetailsComponent implements OnInit {
       this.vehicle = new Vehicle();
       this.createAddForm();
     }
+
   }
 
   getCar(): void {
@@ -66,6 +72,26 @@ export class CarDetailsComponent implements OnInit {
     else if (this.action === 'addCar') {
       this.vehicleService.addVehicle(this.vehicle).subscribe(() => this.goBack());
     }
+  }
+
+  onBorrowerSelectChanged(borrowerId: number) {
+    this.borrow = {
+      borrowerId: borrowerId,
+      vehicleId: this.vehicle.id,
+      date: this.vehicleService.getBorrowDate()
+    };
+    console.log("this.vehicle.id " + this.vehicle.id);
+    console.log("this.borrow.borrowerId " + this.borrow.borrowerId);
+    console.log("BorrowDate " + this.vehicleService.getBorrowDate());
+  }
+
+  onBorrowButtonClicked()
+  {
+    this.borrowVehicle(this.borrow);
+  }
+
+  borrowVehicle(borrow: BorrowDto): void {
+    this.vehicleService.borrowVehicle(borrow).subscribe(() => this.goBack());
   }
 
   onVehicleTypeChanged(vehicleType: string) {

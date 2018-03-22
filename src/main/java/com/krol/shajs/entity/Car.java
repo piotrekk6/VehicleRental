@@ -19,7 +19,6 @@ public class Car extends Vehicle {
 
     private String model;
 
-    @Convert(converter = ColorConverter.class)
     private Color color;
 
     @Convert(converter = DateConverter.class)

@@ -3,13 +3,13 @@ import {NgModule} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
-import {CarsComponent} from './vehicles/cars.component';
-import {CarDetailsComponent} from './vehicle-details/car-details.component';
+import {CarsComponent} from './vehicles/vehicles.component';
+import {CarDetailsComponent} from './vehicle-details/vehicle-details.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {VehicleService} from './vehicle.service';
 import {MessagesComponent} from './messages/messages.component';
 import {MessageService} from './message.service';
-import {AppRoutingModule} from './/app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { MyDatePickerModule } from 'mydatepicker';

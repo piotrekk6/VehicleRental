@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CarsComponent} from './vehicles/cars.component';
-import {CarDetailsComponent} from './vehicle-details/car-details.component';
+import {CarsComponent} from './vehicles/vehicles.component';
+import {CarDetailsComponent} from './vehicle-details/vehicle-details.component';
 
 const routes: Routes = [
   { path: 'showAll', component: CarsComponent},

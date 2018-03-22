@@ -6,4 +6,6 @@ export class vehicleDto{
   model: string;
   color: string;
   productionDate: string;
+  borrowerFirstName: string;
+  borrowerSecondName: string;
 }

@@ -1,5 +1,6 @@
 package com.krol.shajs.service.Implementation;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.krol.shajs.dto.*;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
@@ -14,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_ALREADY_BORROWED;
@@ -49,20 +52,22 @@ public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowServi
     }
 
     @Override
-    public List<VehicleDto> getBorrowedVehiclesForSpecifiedDate(String date) {
+    public List<VehicleWithBorrowNameAndDateDto> getBorrowedVehiclesForSpecifiedDate(String date) {
         LocalDate localDate = LocalDate.parse(date);
-        Collection<VehicleBorrowDto> vehicles = vehicleService.getAll().stream().map(this::borrowEntityToDto).collect(Collectors.toCollection());
-        vehicleDtos.forEach(vehicleDto -> {
-            try {
-                Borrow borrow = borrowRepository.findByDateAndVehicle(localDate, vehicleService.getVehicleByID(vehicleDto.getId());
-                if(borrow != null){
-                    vehicleDto.setBorrowed();
-                }
-            } catch (NotFoundException e) {
-                e.printStackTrace();
+        List<Vehicle> allVehicles = vehicleService.getAll();
+        List<VehicleWithBorrowNameAndDateDto> list = new ArrayList<>();
+
+        for (Vehicle vehicle : allVehicles) {
+            Borrow b = borrowRepository.findByDateAndVehicle(localDate, vehicle);
+            VehicleWithBorrowNameAndDateDto v = vehicleEntityToFlatDto(vehicle);
+            if (b != null) {
+                v.setBorrowDate(b.getDate());
+                v.setBorrowerFirstName(b.getBorrower().getFirstName());
+                v.setBorrowerSecondName(b.getBorrower().getSecondName());
             }
-        });
-        return vehicleDtos;
+            list.add(v);
+        }
+        return list;
     }
 
     @Override

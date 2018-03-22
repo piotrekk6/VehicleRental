@@ -32,13 +32,16 @@
   <input type="date" [(ngModel)]="vehicle.productionDate" class="form-control"
          [disabled]="isProductionDateInputDisabled">
   <label *ngIf="isSelectBorrowerVisible">Borrower Name</label>
+
   <div class="input-group mb-3">
-    <select class="custom-select" id="inputGroupSelect03" *ngIf="isSelectBorrowerVisible">
-      <option *ngFor="let borrower of borrowers" value="{{borrower.id}}">Id: {{borrower.id}} Name: {{borrower.firstName}}</option>
+    <select [(ngModel)]="selectedBorrower" class="custom-select" id="inputGroupSelect03" *ngIf="isSelectBorrowerVisible" (change)="onBorrowerSelectChanged($event.target.value)">
+      <option *ngFor="let borrower of borrowers" [value]="borrower.id">Name: {{borrower.firstName}} {{borrower.secondName}}
+      </option>
     </select>
   </div>
+
   <button (click)="save()" *ngIf="isButtonSaveVisible" [disabled]="isButtonSaveDisabled" class="btn btn-info">Save
   </button>
   <button (click)="goBack()" class="btn btn-dark">Back</button>
-  <button class="btn btn-warning" *ngIf="isSelectBorrowerVisible">Borrow</button>
+  <button class="btn btn-warning" *ngIf="isSelectBorrowerVisible" (click)="onBorrowButtonClicked()">Borrow</button>
 </div>

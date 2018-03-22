@@ -4,10 +4,10 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
-import {logger} from "codelyzer/util/logger";
+import {catchError, tap} from 'rxjs/operators';
 import {Borrower} from './Borrower';
-import {Borrow} from "./Borrow";
+import {vehicleDto} from "./vehicleDto";
+import {BorrowDto} from "./BorrowDto";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -23,8 +23,10 @@ export class VehicleService {
   private deleteCarUlr = 'api/delete';
   private addCarUrl = 'api/addCar';
   private addBikeUrl = 'api/addBike';
-  private BorrowersUrl = 'api/getBorrowers'
-  private BorrowedVehiclesUrl = 'api/show'
+  private borrowersUrl = 'api/getBorrowers'
+  private borrowedVehiclesUrl = 'api/show'
+  private borrowVehicleUrl = 'api/borrow';
+  private borrowDate;
 
   constructor(private messageService: MessageService, private http: HttpClient) {
   }
@@ -36,7 +38,7 @@ export class VehicleService {
         tap((vehicle: Vehicle) => this.log(`added new car `)),
         catchError(this.handleError<Vehicle>('addCar')));
     } else if (vehicle.vehicleType === 'Bike') {
-      return this.http.get<Vehicle>(this.addBikeUrl+'/'+vehicle.name, httpOptions).pipe(
+      return this.http.get<Vehicle>(this.addBikeUrl + '/' + vehicle.name, httpOptions).pipe(
         tap((vehicle: Vehicle) => this.log(`added new bike w/ `)),
         catchError(this.handleError<Vehicle>('addCar')));
     }
@@ -64,17 +66,17 @@ export class VehicleService {
     );
   }
 
-  getBorrowers(): Observable<any>
-  {
-    return this.http.get<Borrower[]>(this.BorrowersUrl).pipe(
-      tap(borrowers => this.log(`fetched borrowers`)), catchError(this.handleError('getBorrowers', [])));
+  getBorrowers(): Observable<any> {
+    return this.http.get<Borrower[]>(this.borrowersUrl).pipe(
+      tap(borrowers => this.log(`fetched borrowers`)),
+      catchError(this.handleError('getBorrowers', [])));
   }
 
-  getBorrowedVehicles(date: string): Observable<any>
-  {
-    const url = `${this.BorrowedVehiclesUrl}/${date}`;
-    return this.http.get<Borrow[]>(url).pipe(
-      tap(borrowers => this.log(`fetched borrowed Vehicles`)), catchError(this.handleError('getBorrowers', [])));
+  getBorrowedVehicles(date: string): Observable<any> {
+    const url = `${this.borrowedVehiclesUrl}/${date}`;
+    return this.http.get<vehicleDto[]>(url).pipe(
+      tap(borrowers => this.log(`get vehicles with borrow info`)),
+      catchError(this.handleError('get vehicles with borrow info', [])));
   }
 
   deleteVehicle(id: number): Observable<Vehicle> {
@@ -84,8 +86,23 @@ export class VehicleService {
       tap(x => this.log(`deleted car id = ${id}`)), catchError(this.handleError<Vehicle>(`deleteCar`)));
   }
 
+  borrowVehicle(borrow: BorrowDto): Observable<any> {
+    const url = `${this.borrowVehicleUrl}`;
+    return this.http.post<BorrowDto>(url, borrow, httpOptions).pipe(
+      tap(x => this.log(`borrow vehicleId: ${borrow.vehicleId} borrowerId: ${borrow.borrowerId} date: ${borrow.date}`)),
+      catchError(this.handleError<BorrowDto>(`borrow vehicle`)));
+  }
+
   private log(message: string) {
     this.messageService.add('VehicleService: ' + message);
+  }
+
+  setBorrowDate(date: string) {
+    this.borrowDate = date;
+  }
+
+  getBorrowDate(): string {
+    return this.borrowDate;
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -97,13 +114,4 @@ export class VehicleService {
       return of(result as T);
     };
   }
-/*  searchCars(term: string): Observable<Vehicle[]> {
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
-    }
-    return this.http.get<Vehicle[]>(`api/cars/?name=${term}`).pipe(
-      tap(_ => this.log(`found cars matching "${term}"`)),
-      catchError(this.handleError<Vehicle[]>('searchCars', [])));
-  }*/
 }
