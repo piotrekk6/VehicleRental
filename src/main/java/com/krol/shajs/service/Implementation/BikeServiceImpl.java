@@ -20,7 +20,7 @@ public class BikeServiceImpl extends BikeCarModelMapper implements BikeService {
     }
 
     @Override
-    public void addBikeByName(String name) {
+    public void addBike(String name) {
         BikeDto bike = new BikeDto();
         bike.setName(name);
         addBike(bike);

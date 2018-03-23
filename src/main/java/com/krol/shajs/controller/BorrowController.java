@@ -8,10 +8,7 @@ import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -50,7 +47,7 @@ public class BorrowController {
 
     @GetMapping(value = "/getBorrowers")
     public Collection<Borrower> getBorrowers() {
-        return borrowerService.findAll(); //TODO return DTO as endpoint
+        return borrowerService.findAll();
     }
 
 }

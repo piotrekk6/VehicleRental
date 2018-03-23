@@ -33,12 +33,12 @@ public abstract class BikeCarModelMapper {
         return null; //TODO return exception
     }
 
-    protected Car editCarDtoToEntity(EditCarDto editCarDto) {
+    protected Car editCarDtoToEntity(CarDto editCarDto) {
         return modelMapper.map(editCarDto, Car.class);
     }
 
-    protected EditCarDto carEntityToEditCarDto(Car car) {
-        return modelMapper.map(car, EditCarDto.class);
+    protected CarDto carEntityToEditCarDto(Car car) {
+        return modelMapper.map(car, CarDto.class);
     }
 
     protected VehicleWithBorrowNameAndDateDto vehicleEntityToFlatDto(Vehicle vehicle) {

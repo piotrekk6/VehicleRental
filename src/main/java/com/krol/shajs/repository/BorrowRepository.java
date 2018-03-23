@@ -17,8 +17,6 @@ public interface BorrowRepository extends JpaRepository<Borrow, Long> {
 
     Collection<Borrow> findByDate(LocalDate date);
 
-    boolean existsByDateAndBorrowerAndVehicle(LocalDate date, Borrower borrower, Vehicle vehicle);
-
     boolean existsByDateAndVehicle(LocalDate date, Vehicle vehicle);
 
     Borrow findByDateAndVehicle(LocalDate date, Vehicle v);

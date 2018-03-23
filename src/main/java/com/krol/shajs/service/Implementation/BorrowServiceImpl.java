@@ -1,7 +1,7 @@
 package com.krol.shajs.service.Implementation;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.krol.shajs.dto.*;
+import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.entity.Vehicle;
@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_ALREADY_BORROWED;

@@ -15,10 +15,9 @@ import java.util.Collection;
 @AllArgsConstructor
 public class VehicleController {
 
-
     private final VehicleService vehicleService;
 
-    @RequestMapping(value = "/showAll", method = RequestMethod.GET)
+    @GetMapping(value = "/showAll")
     public Collection<VehicleDto> showAll() {
         return vehicleService.getAllVehiclesDtoOrderById();
     }
@@ -33,5 +32,4 @@ public class VehicleController {
     public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
         return vehicleService.getVehicleDtoById(Long.valueOf(id));
     }
-
 }
