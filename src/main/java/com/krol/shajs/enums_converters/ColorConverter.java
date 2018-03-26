@@ -26,15 +26,11 @@ public class ColorConverter implements AttributeConverter<Color, String> {
 
     @Override
     public String convertToDatabaseColumn(Color color) {
-        if (color == null) return null;
-        else return colorToStringMap.get(color);
+        return colorToStringMap.get(color);
     }
 
     @Override
     public Color convertToEntityAttribute(String s) {
-        if (s == null) return null;
-        else {
             return stringToColorMap.get(s);
-        }
     }
 }

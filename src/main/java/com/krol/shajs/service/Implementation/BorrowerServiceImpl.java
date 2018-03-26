@@ -5,16 +5,19 @@ import com.krol.shajs.enums_converters.ExceptionCode;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.BorrowerRepository;
 import com.krol.shajs.service.BorrowerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class BorrowerServiceImpl implements BorrowerService {
 
-    @Autowired
-    private BorrowerRepository borrowerRepository;
+    private final BorrowerRepository borrowerRepository;
 
     @Override
     public Borrower getBorrowerById(Long id) throws NotFoundException {

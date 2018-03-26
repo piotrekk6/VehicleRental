@@ -11,8 +11,10 @@ import com.krol.shajs.repository.BorrowRepository;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import com.krol.shajs.service.VehicleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,20 +25,14 @@ import java.util.stream.Collectors;
 import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_ALREADY_BORROWED;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowService {
 
     private final BorrowRepository borrowRepository;
     private final BorrowerService borrowerService;
     private final VehicleService vehicleService;
     private final BorrowEntityDtoConverter borrowEntityDtoConverter;
-
-    @Autowired
-    public BorrowServiceImpl(BorrowRepository borrowRepository, BorrowerService borrowerService, VehicleService vehicleService, BorrowEntityDtoConverter borrowEntityDtoConverter) {
-        this.borrowRepository = borrowRepository;
-        this.borrowerService = borrowerService;
-        this.vehicleService = vehicleService;
-        this.borrowEntityDtoConverter = borrowEntityDtoConverter;
-    }
 
     @Override
     public Borrow borrowVehicle(BorrowDto borrowDto) throws NotFoundException {
