@@ -12,4 +12,5 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Bike extends Vehicle {
 
+    private String name;
 }

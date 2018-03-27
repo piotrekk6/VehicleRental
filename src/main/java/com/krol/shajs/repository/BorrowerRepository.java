@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BorrowerRepository extends JpaRepository<Borrower, Long> {
-
     List<Borrower> findAll();
-
 }

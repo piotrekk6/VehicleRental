@@ -18,7 +18,7 @@ public class BorrowEntityDtoConverter {
         if (borrowEntity.getVehicle().isCar()) {
             Car car = (Car) borrowEntity.getVehicle();
             CarDto vehicleDto = new CarDto();
-            vehicleDto.setName(car.getName());
+            //vehicleDto.setName(car.getName());
             vehicleDto.setVehicleType(car.getVehicleType());
             vehicleDto.setProductionDate(car.getProductionDate());
             vehicleDto.setModel(car.getModel());

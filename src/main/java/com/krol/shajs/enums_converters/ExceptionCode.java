@@ -9,7 +9,8 @@ public enum ExceptionCode {
     VEHICLE_NOT_FOUND("Vehicle  with specified id doesn't exist"),
     BORROW_NOT_FOUND("Borrow doesn't exist"),
     VEHICLE_ALREADY_BORROWED("Vehicle is already borrowed for this date"),
-    WRONG_DATE("Invalid date");
+    WRONG_DATE("Invalid date"),
+    MANUFACTURER_NOT_FOUND("Manufacturer not found");
 
     private  String code;
 }

@@ -16,5 +16,6 @@ public class CarDto extends VehicleDto {
     private String model;
     private Color color;
     private LocalDate productionDate;
+    private String manufacturerName;
 
 }

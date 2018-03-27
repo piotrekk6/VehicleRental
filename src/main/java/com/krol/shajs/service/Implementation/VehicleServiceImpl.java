@@ -1,13 +1,12 @@
 package com.krol.shajs.service.Implementation;
 
-import com.krol.shajs.dto.BikeCarModelMapper;
+import com.krol.shajs.enums_converters.dtoConverter.BikeCarModelMapper;
 import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.VehicleRepository;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,6 +5,7 @@ import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.entity.Vehicle;
+import com.krol.shajs.enums_converters.dtoConverter.BikeCarModelMapper;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowEntityDtoConverter;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.BorrowRepository;
@@ -12,7 +13,6 @@ import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
