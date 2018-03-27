@@ -22,10 +22,10 @@ public class CarEntityDtoConverter {
     public Car createEntity(CarDto carDto)
     {
         Car car = new Car();
+        car.setId(carDto.getId());
         car.setProductionDate(carDto.getProductionDate());
         car.setModel(carDto.getModel());
         car.setColor(carDto.getColor());
         return car;
     }
-
 }

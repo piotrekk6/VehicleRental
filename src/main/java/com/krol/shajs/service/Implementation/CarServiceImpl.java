@@ -23,33 +23,24 @@ public class CarServiceImpl extends BikeCarModelMapper implements CarService {
 
     @Override
     public Car addCar(CarDto carDto) {
-        Manufacturer manufacturer = getManufacturer(carDto.getManufacturerName());
-        carDto.setManufacturerName(manufacturer.getName());
-        return carRepository.save(carEntityDtoConverter.createEntity(carDto));
+        Manufacturer manufacturer = manufacturerService.getManufacturer(carDto.getManufacturerName());
+        Car car = carEntityDtoConverter.createEntity(carDto);
+        car.setManufacturer(manufacturer);
+        return carRepository.save(car);
     }
 
     @Override
     public Car addCar(String name) {
         Car car = new Car();
-        car.setManufacturer(getManufacturer(name));
+        car.setManufacturer(manufacturerService.getManufacturer(name));
         return carRepository.save(car);
     }
 
     @Override
     public void editCar(CarDto editCarDto) {
-        Car car = editCarDtoToEntity(editCarDto);
+        Car car = carEntityDtoConverter.createEntity(editCarDto);
+        car.setManufacturer(manufacturerService.getManufacturer(editCarDto.getManufacturerName()));
         carRepository.save(car);
     }
 
-   /* Finds manufacturer in database by name and returns. If it doesnt exist saves and returns new Manufacturer.*/
-    private Manufacturer getManufacturer(String manufacturerName)
-    {
-        Manufacturer fetchedManufacturer = manufacturerService.findByName(manufacturerName);
-        if (fetchedManufacturer == null) {
-            return manufacturerService.create(manufacturerName);
-        }
-        return fetchedManufacturer;
-
-
-    }
 }

@@ -14,9 +14,9 @@ public class CarController {
 
     private final CarService carService;
 
-    @PostMapping("/addCar/{name}")
-    public void addCarByManufacturer(@PathVariable("name") String name) {
-        carService.addCar(name);
+    @PostMapping("/addCar/{manufacturer}")
+    public void addCarByManufacturer(@PathVariable("manufacturer") String manufacturerName) {
+        carService.addCar(manufacturerName);
     }
 
     @PostMapping(value = "/addCar")
