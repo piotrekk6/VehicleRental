@@ -5,6 +5,7 @@ import com.krol.shajs.dto.BikeDto;
 import com.krol.shajs.repository.BikeRepository;
 import com.krol.shajs.service.BikeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BikeServiceImpl extends BikeCarModelMapper implements BikeService {
 
-    private BikeRepository bikeRepository;
+
+    private final BikeRepository bikeRepository;
 
     @Override
     public void addBike(BikeDto bike) {

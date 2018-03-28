@@ -31,12 +31,10 @@ public class Borrow {
     @NotNull
     private Borrower borrower;
 
-
     public void borrow(Borrower borrower, Vehicle vehicle, LocalDate date)
     {
         this.setBorrower(borrower);
         this.setVehicle(vehicle);
         this.setDate(date);
     }
-
 }

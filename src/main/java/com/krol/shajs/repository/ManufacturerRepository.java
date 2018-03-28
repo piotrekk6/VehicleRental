@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long> {
 
-    boolean existsByName(String name);
-    Manufacturer findByName(String name);
+    Manufacturer findByManufacturerName(String name);
 }

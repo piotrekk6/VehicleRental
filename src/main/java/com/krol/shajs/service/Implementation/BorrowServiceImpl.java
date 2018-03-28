@@ -50,7 +50,7 @@ public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowServi
     public List<VehicleWithBorrowNameAndDateDto> getBorrowedVehiclesForSpecifiedDate(String date) {
         LocalDate localDate = LocalDate.parse(date);
         List<Vehicle> allVehicles = vehicleService.getAll();
-        List<VehicleWithBorrowNameAndDateDto> list = new ArrayList<>();
+        List<VehicleWithBorrowNameAndDateDto> vehicleWithBorrowNameAndDateList = new ArrayList<>();
 
         for (Vehicle vehicle : allVehicles) {
             Borrow b = borrowRepository.findByDateAndVehicle(localDate, vehicle);
@@ -60,9 +60,9 @@ public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowServi
                 v.setBorrowerFirstName(b.getBorrower().getFirstName());
                 v.setBorrowerSecondName(b.getBorrower().getSecondName());
             }
-            list.add(v);
+            vehicleWithBorrowNameAndDateList.add(v);
         }
-        return list;
+        return vehicleWithBorrowNameAndDateList;
     }
 
     @Override

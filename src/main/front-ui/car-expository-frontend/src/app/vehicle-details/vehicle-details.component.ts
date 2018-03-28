@@ -23,6 +23,7 @@ export class CarDetailsComponent implements OnInit {
   isButtonSaveDisabled: boolean;
   isButtonSaveVisible: boolean;
   isSelectBorrowerVisible: boolean;
+  isManufacturerInputDisabled: boolean;
   action: string;
   borrowers: Borrower[];
   selectedBorrower: Borrower;
@@ -116,6 +117,7 @@ export class CarDetailsComponent implements OnInit {
     this.isSelectBorrowerVisible = true;
     this.isBorrowButtonVisible = true;
     this.isSelectBorrowerVisible = true;
+    this.isManufacturerInputDisabled = true;
   }
 
   private createEditForm(): void {
@@ -149,6 +151,8 @@ export class CarDetailsComponent implements OnInit {
       = this.isModelInputDisabled
       = this.isProductionDateInputDisabled
       = this.isButtonSaveDisabled
+      = this.isManufacturerInputDisabled
       = status;
+    this.isNameInputDisabled = !status;
   }
 }

@@ -84,5 +84,18 @@
         </plugins>
     </build>
 
-
+    <profiles>
+    <profile>
+        <id>dev</id>
+        <properties>
+            <profile-name>development</profile-name>
+            <datasource-url>jdbc:postgresql://localhost:5432/service</datasource-url>
+            <datasource-username>postgres</datasource-username>
+            <datasource-password>1234</datasource-password>
+        </properties>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+    </profile>
+    </profiles>
 </project>

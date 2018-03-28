@@ -14,7 +14,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public Manufacturer findByName(String name) {
-        return manufacturerRepository.findByName(name);
+        return manufacturerRepository.findByManufacturerName(name);
     }
 
     @Override

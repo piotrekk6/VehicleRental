@@ -1,13 +1,14 @@
 package com.krol.shajs.enums_converters.dtoConverter;
 
 import com.krol.shajs.dto.CarDto;
+import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Car;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CarEntityDtoConverter {
 
-    public CarDto createDto(Car car)
+    public VehicleDto createDto(Car car)
     {
         CarDto carDto = new CarDto();
         carDto.setId(car.getId());
@@ -15,7 +16,7 @@ public class CarEntityDtoConverter {
         carDto.setModel(car.getModel());
         carDto.setProductionDate(car.getProductionDate());
         carDto.setVehicleType(car.getVehicleType());
-        carDto.setManufacturerName(car.getManufacturer().getName());
+        carDto.setManufacturerName(car.getManufacturer().getManufacturerName());
         return carDto;
     }
 

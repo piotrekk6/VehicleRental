@@ -13,6 +13,7 @@ public class VehicleWithBorrowNameAndDateDto {
 
     private String vehicleType;
     private String model;
+    private String manufacturerName;
     private String name;
     private Color color;
     private LocalDate productionDate;
