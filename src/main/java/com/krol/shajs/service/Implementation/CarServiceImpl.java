@@ -4,7 +4,7 @@ import com.krol.shajs.enums_converters.dtoConverter.BikeCarModelMapper;
 import com.krol.shajs.dto.CarDto;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Manufacturer;
-import com.krol.shajs.enums_converters.dtoConverter.CarEntityDtoConverter;
+import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
 import com.krol.shajs.repository.CarRepository;
 import com.krol.shajs.service.CarService;
 import com.krol.shajs.service.ManufacturerService;
@@ -19,12 +19,12 @@ public class CarServiceImpl extends BikeCarModelMapper implements CarService {
 
     private final CarRepository carRepository;
     private final ManufacturerService manufacturerService;
-    private final CarEntityDtoConverter carEntityDtoConverter;
+    private final VehicleEntityDtoConverter vehicleEntityDtoConverter;
 
     @Override
     public Car addCar(CarDto carDto) {
         Manufacturer manufacturer = manufacturerService.getManufacturer(carDto.getManufacturerName());
-        Car car = carEntityDtoConverter.createEntity(carDto);
+        Car car = vehicleEntityDtoConverter.createEntity(carDto);
         car.setManufacturer(manufacturer);
         return carRepository.save(car);
     }
@@ -38,7 +38,7 @@ public class CarServiceImpl extends BikeCarModelMapper implements CarService {
 
     @Override
     public void editCar(CarDto editCarDto) {
-        Car car = carEntityDtoConverter.createEntity(editCarDto);
+        Car car = vehicleEntityDtoConverter.createEntity(editCarDto);
         car.setManufacturer(manufacturerService.getManufacturer(editCarDto.getManufacturerName()));
         carRepository.save(car);
     }

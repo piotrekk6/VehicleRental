@@ -43,7 +43,7 @@ public class BorrowController {
     @PostMapping(value = "addBorrower")
     public void addBorrower(@RequestBody Borrower borrower) {
         borrowerService.addBorower(borrower);
-    }
+    } //todo return url of newly added element
 
     @GetMapping(value = "/getBorrowers")
     public Collection<Borrower> getBorrowers() {

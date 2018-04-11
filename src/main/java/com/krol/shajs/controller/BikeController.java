@@ -2,10 +2,10 @@ package com.krol.shajs.controller;
 
 import com.krol.shajs.service.BikeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -14,8 +14,9 @@ public class BikeController {
 
     private final BikeService bikeService;
 
-    @GetMapping(value = "/addBike/{name}")
+    @PostMapping(value = "/addBike/{name}")
+    @ResponseStatus(CREATED)
     public void addBike(@PathVariable("name") String name) {
-        bikeService.addBike(name);
+        bikeService.addBike(name); //todo return url of newly added element
     }
 }

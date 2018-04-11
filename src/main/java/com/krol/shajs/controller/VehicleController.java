@@ -19,7 +19,7 @@ public class VehicleController {
 
     @GetMapping(value = "/showAll")
     public Collection<VehicleDto> showAll() {
-        return vehicleService.getAllVehiclesDtoOrderById();
+        return vehicleService.getAllVehiclesOrderById();
     }
 
     @DeleteMapping(value = "/delete/{id}")
@@ -30,6 +30,6 @@ public class VehicleController {
 
     @GetMapping(value = "/details/{id}")
     public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
-        return vehicleService.getVehicleDtoById(Long.valueOf(id));
+        return vehicleService.getVehicleById(Long.valueOf(id));
     }
 }

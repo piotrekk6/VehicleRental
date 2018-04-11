@@ -7,6 +7,7 @@ import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.VehicleRepository;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     private final VehicleRepository vehicleRepository;
 
     @Override
-    public List<VehicleDto> getAllVehiclesDtoOrderById() {
+    public List<VehicleDto> getAllVehiclesOrderById() {
         Set<Vehicle> vehicleResultList = vehicleRepository.findAllByOrderById();
         return vehicleResultList.stream().map(this::vehicleEntityToDto).collect(Collectors.toList());
     }
@@ -34,7 +35,7 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     }
 
     @Override
-    public VehicleDto getVehicleDtoById(Long id) throws NotFoundException {
+    public VehicleDto getVehicleById(Long id) throws NotFoundException {
         Vehicle vehicle = getVehicleByID(id);
         return vehicleEntityToDto(vehicle);
     }

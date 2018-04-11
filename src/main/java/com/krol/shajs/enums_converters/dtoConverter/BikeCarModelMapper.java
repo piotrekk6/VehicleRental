@@ -16,6 +16,9 @@ public abstract class BikeCarModelMapper {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private VehicleEntityDtoConverter vehicleEntityDtoConverter;
+
     protected Car carDtoToEntity(CarDto carDto) {
         return modelMapper.map(carDto, Car.class);
     }
@@ -46,7 +49,7 @@ public abstract class BikeCarModelMapper {
     }
 
     protected VehicleWithBorrowNameAndDateDto vehicleEntityToFlatDto(Vehicle vehicle) {
-        VehicleDto vehicleDto = vehicleEntityToDto(vehicle);
+        VehicleDto vehicleDto = vehicleEntityDtoConverter.createDto(vehicle);
         return modelMapper.map(vehicleDto, VehicleWithBorrowNameAndDateDto.class);
     }
 }
