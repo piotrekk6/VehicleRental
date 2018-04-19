@@ -9,6 +9,7 @@ import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -22,8 +23,14 @@ import static org.springframework.http.HttpStatus.OK;
 @ResponseStatus(OK)
 public class BorrowController {
 
-    private final BorrowService borrowService;
-    private final BorrowerService borrowerService;
+    private BorrowService borrowService;
+    private BorrowerService borrowerService;
+
+    @Autowired
+    public BorrowController(BorrowService borrowService, BorrowerService borrowerService) {
+        this.borrowService = borrowService;
+        this.borrowerService = borrowerService;
+    }
 
     @PostMapping(value = "/borrow")
     public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {

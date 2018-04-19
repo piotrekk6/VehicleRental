@@ -4,6 +4,7 @@ import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.VehicleService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,14 @@ import java.util.Collection;
 @RestController
 @RequestMapping(value = "/api")
 @ResponseStatus(HttpStatus.OK)
-@AllArgsConstructor
 public class VehicleController {
 
     private final VehicleService vehicleService;
+
+    @Autowired
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
 
     @GetMapping(value = "/showAll")
     public Collection<VehicleDto> showAll() {

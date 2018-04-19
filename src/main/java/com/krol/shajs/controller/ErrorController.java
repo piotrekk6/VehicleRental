@@ -1,6 +1,7 @@
 package com.krol.shajs.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,10 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequiredArgsConstructor
+
 public class ErrorController  implements org.springframework.boot.autoconfigure.web.ErrorController {
 
     private final ErrorAttributes errorAttributes;
+
+    @Autowired
+    public ErrorController(ErrorAttributes errorAttributes) {
+        this.errorAttributes = errorAttributes;
+    }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public Map<String, Object> error(HttpServletRequest aRequest){

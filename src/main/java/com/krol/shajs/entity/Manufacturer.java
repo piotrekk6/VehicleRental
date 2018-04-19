@@ -20,6 +20,7 @@ public class Manufacturer {
 
     private String manufacturerName;
 
+    //constructor
     public Manufacturer(String manufacturerName) {
         this.manufacturerName = manufacturerName;
     }

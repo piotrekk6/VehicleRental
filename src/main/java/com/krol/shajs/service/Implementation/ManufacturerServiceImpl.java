@@ -4,13 +4,18 @@ import com.krol.shajs.entity.Manufacturer;
 import com.krol.shajs.repository.ManufacturerRepository;
 import com.krol.shajs.service.ManufacturerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class ManufacturerServiceImpl implements ManufacturerService {
 
     private final ManufacturerRepository manufacturerRepository;
+
+    @Autowired
+    public ManufacturerServiceImpl(ManufacturerRepository manufacturerRepository) {
+        this.manufacturerRepository = manufacturerRepository;
+    }
 
     @Override
     public Manufacturer findByName(String name) {

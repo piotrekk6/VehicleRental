@@ -23,7 +23,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,7 +32,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.6.0</version>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -65,13 +72,17 @@
             <version>2.8.0</version>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>24.1-jre</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>22.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -83,17 +94,17 @@
         </plugins>
     </build>
     <profiles>
-    <profile>
-        <id>dev</id>
-        <properties>
-            <profile-name>development</profile-name>
-            <datasource-url>jdbc:postgresql://localhost:5432/service</datasource-url>
-            <datasource-username>postgres</datasource-username>
-            <datasource-password>1234</datasource-password>
-        </properties>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-    </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profile-name>development</profile-name>
+                <datasource-url>jdbc:postgresql://localhost:5432/service</datasource-url>
+                <datasource-username>postgres</datasource-username>
+                <datasource-password>1234</datasource-password>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
     </profiles>
 </project>
