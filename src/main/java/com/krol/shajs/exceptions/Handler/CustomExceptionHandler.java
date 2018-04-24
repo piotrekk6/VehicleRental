@@ -26,8 +26,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return Collections.singletonMap("Error", e.getCode().getCode());
     }
 
-/*    @Override
+    @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return super.handleHttpRequestMethodNotSupported(ex, headers, status, request);
-    }*/
+    }
 }
