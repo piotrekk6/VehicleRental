@@ -1,7 +1,10 @@
 package com.krol.shajs.service.Implementation;
 
-import com.krol.shajs.dto.UserDto;
+import com.krol.shajs.dto.security.AddRoleDto;
+import com.krol.shajs.dto.security.UserDto;
+import com.krol.shajs.entity.Role;
 import com.krol.shajs.entity.User;
+import com.krol.shajs.repository.RoleRepository;
 import com.krol.shajs.repository.UserRepository;
 import com.krol.shajs.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -23,6 +28,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bcryptEncoder;
+    private final RoleRepository roleRepository;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
@@ -42,9 +48,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(list::add);
-        return list;
+        return userRepository.findAll();
     }
 
     @Override
@@ -58,12 +62,24 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User save(UserDto user) {
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setAge(user.getAge());
-        newUser.setSalary(user.getSalary());
-        return userRepository.save(newUser);
+    public User save(UserDto userDto) {
+        User user = new User();
+        user.setUsername(user.getUsername());
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
+        user.setAge(user.getAge());
+        user.setSalary(user.getSalary());
+        return userRepository.save(user);
     }
+
+    @Override
+    public void addRoles(AddRoleDto roleDto) {
+        User user = getUserByUsername(roleDto.getUserName());
+        Set<Role> roles = roleDto.getRoles().stream()
+                                 .map(role -> Optional.ofNullable(roleRepository.findByRole(role))
+                                                      .orElseGet(() -> roleRepository.save(new Role(role))))
+                                 .collect(Collectors.toSet());
+        user.addRoles(roles);
+        userRepository.save(user);
+    }
+
 }

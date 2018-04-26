@@ -24,13 +24,13 @@ public class CarController {
     @PostMapping("/addCar/{manufacturer}")
     public void addCarByManufacturer(@PathVariable("manufacturer") String manufacturerName) {
         carService.addCar(manufacturerName);
-    }//todo return url of newly added element
+    }
 
     @PostMapping(value = "/addCar")
     @ResponseStatus(CREATED)
     public void addCarByDto(@RequestBody CarDto carDto) {
         carService.addCar(carDto);
-    }//todo return url of newly added element
+    }
 
     @PutMapping(value = "/editCar")
     public void editCar(@RequestBody CarDto editCarDto) {

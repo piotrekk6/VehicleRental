@@ -1,4 +1,4 @@
-package com.krol.shajs.dto;
+package com.krol.shajs.dto.security;
 
 public class AuthToken {
 

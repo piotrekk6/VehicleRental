@@ -1,7 +1,9 @@
-package com.krol.shajs.dto;
+package com.krol.shajs.dto.security;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
