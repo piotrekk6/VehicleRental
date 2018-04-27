@@ -7,12 +7,14 @@ import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.enums_converters.dtoConverter.BikeCarModelMapper;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowEntityDtoConverter;
+import com.krol.shajs.enums_converters.dtoConverter.VehicleBorrowConverter;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.BorrowRepository;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,7 @@ public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowServi
     private final BorrowerService borrowerService;
     private final VehicleService vehicleService;
     private final BorrowEntityDtoConverter borrowEntityDtoConverter;
+    private final VehicleBorrowConverter vehicleBorrowConverter;
 
     @Override
     public Borrow borrowVehicle(BorrowDto borrowDto) throws NotFoundException {
@@ -47,18 +50,18 @@ public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowServi
     }
 
     @Override
-    public List<VehicleWithBorrowNameAndDateDto> getBorrowedVehiclesForSpecifiedDate(String date) {
+    public List<VehicleWithBorrowNameAndDateDto> getAllVehiclesWithBorrowInfoForSpecifiedDate(String date) {
         LocalDate localDate = LocalDate.parse(date);
         List<Vehicle> allVehicles = vehicleService.getAll();
         List<VehicleWithBorrowNameAndDateDto> vehicleWithBorrowNameAndDateList = new ArrayList<>();
 
         for (Vehicle vehicle : allVehicles) {
-            Borrow b = borrowRepository.findByDateAndVehicle(localDate, vehicle);
-            VehicleWithBorrowNameAndDateDto v = vehicleEntityToFlatDto(vehicle);
-            if (b != null) {
-                v.setBorrowDate(b.getDate());
-                v.setBorrowerFirstName(b.getBorrower().getFirstName());
-                v.setBorrowerSecondName(b.getBorrower().getSecondName());
+            Borrow borrow = borrowRepository.findByDateAndVehicle(localDate, vehicle);
+            VehicleWithBorrowNameAndDateDto v = vehicleBorrowConverter.createDto(vehicle);
+            if (borrow != null) {
+                v.setBorrowDate(borrow.getDate());
+                v.setBorrowerFirstName(borrow.getBorrower().getFirstName());
+                v.setBorrowerSecondName(borrow.getBorrower().getSecondName());
             }
             vehicleWithBorrowNameAndDateList.add(v);
         }

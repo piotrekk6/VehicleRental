@@ -32,13 +32,12 @@ export class VehicleService {
   }
 
   addVehicle(vehicle: Vehicle): Observable<Vehicle> {
-
     if (vehicle.vehicleType === 'Car') {
       return this.http.post<Vehicle>(this.addCarUrl, vehicle, httpOptions).pipe(
         tap((vehicle: Vehicle) => this.log(`added new car `)),
         catchError(this.handleError<Vehicle>('addCar')));
     } else if (vehicle.vehicleType === 'Bike') {
-      return this.http.get<Vehicle>(this.addBikeUrl + '/' + vehicle.name, httpOptions).pipe(
+      return this.http.post<Vehicle>(this.addBikeUrl + '/' + vehicle.name, httpOptions).pipe(
         tap((vehicle: Vehicle) => this.log(`added new bike w/ `)),
         catchError(this.handleError<Vehicle>('addCar')));
     }

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -52,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().
                 authorizeRequests()
             .antMatchers("/api/token/*", "/api/register", "/api/showAll", "/api/details/**", "/api/users").permitAll()
-            .antMatchers("/api/roles").permitAll()
+            .antMatchers("/api/roles", "/api/addBike/**", "/api/addCar/**", "/api/show/**", "/api/showAllBorrows").permitAll()
             .antMatchers("/swagger.json").permitAll()
             .anyRequest().authenticated()
             .and()
@@ -67,10 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");
     }
 
-
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

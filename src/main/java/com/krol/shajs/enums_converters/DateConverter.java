@@ -16,5 +16,6 @@ public class DateConverter implements AttributeConverter<LocalDate, Date> {
     @Override
     public LocalDate convertToEntityAttribute(Date date) {
         return Optional.ofNullable(date).map(Date::toLocalDate).orElse(null);
+
     }
 }

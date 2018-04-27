@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface BorrowService {
     Borrow borrowVehicle(BorrowDto borrowDto) throws NotFoundException;
-    List<VehicleWithBorrowNameAndDateDto> getBorrowedVehiclesForSpecifiedDate(String date) throws NotFoundException;
+    List<VehicleWithBorrowNameAndDateDto> getAllVehiclesWithBorrowInfoForSpecifiedDate(String date) throws NotFoundException;
     Collection<BorrowedVehicleDto> getAllBorrows();
 
 }

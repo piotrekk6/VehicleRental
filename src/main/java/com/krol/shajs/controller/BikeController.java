@@ -22,6 +22,6 @@ public class BikeController {
     @PostMapping(value = "/addBike/{name}")
     @ResponseStatus(CREATED)
     public void addBike(@PathVariable("name") String name) {
-        bikeService.addBike(name); //todo return url of newly added element
+        bikeService.addBike(name);
     }
 }
