@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+@EqualsAndHashCode
 public abstract class VehicleDto {
     private Long id;
 

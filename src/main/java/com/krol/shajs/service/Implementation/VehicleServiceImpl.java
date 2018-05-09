@@ -1,13 +1,12 @@
 package com.krol.shajs.service.Implementation;
 
-import com.krol.shajs.enums_converters.dtoConverter.BikeCarModelMapper;
 import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Vehicle;
+import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.VehicleRepository;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +18,15 @@ import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_NOT_FOUND;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleService {
+public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
+    private final VehicleEntityDtoConverter vehicleEntityDtoConverter;
 
     @Override
     public List<VehicleDto> getAllVehiclesOrderById() {
         Set<Vehicle> vehicleResultList = vehicleRepository.findAllByOrderById();
-        return vehicleResultList.stream().map(this::vehicleEntityToDto).collect(Collectors.toList());
+        return vehicleResultList.stream().map(vehicleEntityDtoConverter::createDto).collect(Collectors.toList());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class VehicleServiceImpl extends BikeCarModelMapper implements VehicleSer
     @Override
     public VehicleDto getVehicleById(Long id) throws NotFoundException {
         Vehicle vehicle = getVehicleByID(id);
-        return vehicleEntityToDto(vehicle);
+        return vehicleEntityDtoConverter.createDto(vehicle);
     }
 
     public Vehicle getVehicleByID(Long id) throws NotFoundException {

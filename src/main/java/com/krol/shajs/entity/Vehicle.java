@@ -22,6 +22,9 @@ public abstract class Vehicle {
     @Column(name = "dtype", insertable = false, updatable = false)
     String vehicleType;
 
+    @Version
+    private int version;
+
     @JsonIgnore
     public boolean isBike() {
         return this.getVehicleType().equals(BIKE.getVehicleType());

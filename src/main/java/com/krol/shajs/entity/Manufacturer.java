@@ -8,10 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
-
 @Getter
 @Setter
-@Embeddable
 public class Manufacturer {
 
     @Id

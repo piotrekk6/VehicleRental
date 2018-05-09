@@ -1,6 +1,7 @@
 package com.krol.shajs.controller;
 
 import com.krol.shajs.dto.CarDto;
+import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CarController {
     }
 
     @PutMapping(value = "/editCar")
-    public void editCar(@RequestBody CarDto editCarDto) {
+    public void editCar(@RequestBody CarDto editCarDto) throws NotFoundException {
         carService.editCar(editCarDto);
     }
 }

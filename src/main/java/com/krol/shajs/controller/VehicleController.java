@@ -27,13 +27,13 @@ public class VehicleController {
         return vehicleService.getAllVehiclesOrderById();
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteById(@PathVariable("id") String id) throws NotFoundException {
         vehicleService.deleteById(Long.valueOf(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/details/{id}")
     public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
         return vehicleService.getVehicleById(Long.valueOf(id));

@@ -1,11 +1,11 @@
 package com.krol.shajs.service.Implementation;
 
-import com.krol.shajs.dto.*;
 import com.krol.shajs.dto.BorrowDto;
+import com.krol.shajs.dto.BorrowedVehicleDto;
+import com.krol.shajs.dto.VehicleWithBorrowNameAndDateDto;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.entity.Vehicle;
-import com.krol.shajs.enums_converters.dtoConverter.BikeCarModelMapper;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowEntityDtoConverter;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleBorrowConverter;
 import com.krol.shajs.exceptions.NotFoundException;
@@ -14,7 +14,6 @@ import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +28,7 @@ import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_ALREADY_BORR
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class BorrowServiceImpl extends BikeCarModelMapper implements BorrowService {
+public class BorrowServiceImpl  implements BorrowService {
 
     private final BorrowRepository borrowRepository;
     private final BorrowerService borrowerService;
