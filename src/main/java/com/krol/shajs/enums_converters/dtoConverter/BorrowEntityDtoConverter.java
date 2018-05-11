@@ -34,7 +34,7 @@ public class BorrowEntityDtoConverter {
             borrowDto.setVehicleDto(vehicleDto);
         }
 
-        BorrowerDto borrowerDto = new BorrowerDto(borrowEntity.getBorrower().getFirstName(), borrowEntity.getBorrower().getSecondName());
+        BorrowerDto borrowerDto = new BorrowerDto(borrowEntity.getId(),borrowEntity.getBorrower().getFirstName(), borrowEntity.getBorrower().getSecondName());
         borrowDto.setId(borrowEntity.getId());
         borrowDto.setBorrowerDto(borrowerDto);
         borrowDto.setDate(borrowEntity.getDate());

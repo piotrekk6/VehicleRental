@@ -2,6 +2,7 @@ package com.krol.shajs.entity;
 
 import com.krol.shajs.enums_converters.Color;
 import com.krol.shajs.enums_converters.DateConverter;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Car extends Vehicle {
 
     @ManyToOne

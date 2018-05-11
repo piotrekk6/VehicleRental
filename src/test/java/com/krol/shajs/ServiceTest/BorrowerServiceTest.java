@@ -1,11 +1,12 @@
 package com.krol.shajs.ServiceTest;
 
+import com.krol.shajs.dto.BorrowerDto;
 import com.krol.shajs.entity.Borrower;
+import com.krol.shajs.enums_converters.dtoConverter.BorrowerEntityDtoConverter;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.BorrowerRepository;
 import com.krol.shajs.service.BorrowerService;
 import com.krol.shajs.service.Implementation.BorrowerServiceImpl;
-import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.never;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,11 +28,14 @@ public class BorrowerServiceTest {
     @MockBean
     private BorrowerRepository borrowerRepository;
 
+    @MockBean
+    private BorrowerEntityDtoConverter borrowerEntityDtoConverter;
+
     private BorrowerService borrowerService;
 
     @Before
     public void beforeMethod() {
-        borrowerService = new BorrowerServiceImpl(borrowerRepository);
+        borrowerService = new BorrowerServiceImpl(borrowerRepository, borrowerEntityDtoConverter);
     }
 
     @Test
@@ -57,18 +61,25 @@ public class BorrowerServiceTest {
 
     @Test
     public void testAddBorrower() {
-
-        //given
+        //given: borrower mock
         Borrower borrower = new Borrower();
         borrower.setId(98L);
         borrower.setFirstName("Jan");
         borrower.setSecondName("Kowalski");
-        when(borrowerRepository.save(borrower)).thenReturn(borrower);
 
-        //when
-        borrowerService.addBorower(borrower);
+        //and: borrowerDto mock
+        BorrowerDto borrowerDto = new BorrowerDto();
+        borrowerDto.setId(98L);
+        borrowerDto.setFirstName("Jan");
+        borrowerDto.setSecondName("Kowalski");
 
-        //then
+        //and: mock borrowerRepository and dto mapper
+        when(borrowerRepository.save(any(Borrower.class))).thenReturn(borrower);
+        when(borrowerEntityDtoConverter.createEntity(any(BorrowerDto.class))).thenReturn(borrower);
+        //when: add new borrower
+        borrowerService.addBorower(borrowerDto);
+
+        //then: save new borrower
         ArgumentCaptor<Borrower> borrowerCaptor = ArgumentCaptor.forClass(Borrower.class);
         verify(borrowerRepository).save(borrowerCaptor.capture());
 
@@ -76,7 +87,6 @@ public class BorrowerServiceTest {
 
         Assert.assertEquals(borrower.getFirstName(),borrower1.getFirstName());
         Assert.assertEquals(borrower.getSecondName(),borrower1.getSecondName());
-        Assert.assertEquals(borrower.getId(), borrower1.getId());
+        Assert.assertNotNull(borrower1.getId());
     }
-
 }

@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/token/*", "/api/register", "/api/showAll", "/api/details/**", "/api/users").permitAll()
             .antMatchers("/api/roles", "/api/addBike/**", "/api/addCar/**", "/api/show/**", "/api/showAllBorrows").permitAll()
             .antMatchers("/api/editCar").permitAll()
-            .antMatchers("/**").permitAll()
+            .antMatchers("/**").permitAll() //disable
             .antMatchers("/swagger.json").permitAll()
             .anyRequest().authenticated()
             .and()

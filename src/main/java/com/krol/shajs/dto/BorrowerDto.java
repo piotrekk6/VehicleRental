@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 public class BorrowerDto {
-
+    private long id;
     private String firstName;
     private String secondName;
 }

@@ -2,15 +2,20 @@ package com.krol.shajs.controller;
 
 import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.dto.BorrowedVehicleDto;
+import com.krol.shajs.dto.BorrowerDto;
 import com.krol.shajs.dto.VehicleWithBorrowNameAndDateDto;
 import com.krol.shajs.entity.Borrow;
-import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,14 +28,8 @@ import static org.springframework.http.HttpStatus.OK;
 @ResponseStatus(OK)
 public class BorrowController {
 
-    private BorrowService borrowService;
-    private BorrowerService borrowerService;
-
-    @Autowired
-    public BorrowController(BorrowService borrowService, BorrowerService borrowerService) {
-        this.borrowService = borrowService;
-        this.borrowerService = borrowerService;
-    }
+    private final BorrowService borrowService;
+    private final BorrowerService borrowerService;
 
     @PostMapping(value = "/borrow")
     public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {
@@ -48,12 +47,12 @@ public class BorrowController {
     }
 
     @PostMapping(value = "addBorrower")
-    public void addBorrower(@RequestBody Borrower borrower) {
-        borrowerService.addBorower(borrower);
-    } //todo return url of newly added element
+    public void addBorrower(@RequestBody BorrowerDto borrowerDto) {
+        borrowerService.addBorower(borrowerDto);
+    }
 
     @GetMapping(value = "/getBorrowers")
-    public Collection<Borrower> getBorrowers() {
+    public Collection<BorrowerDto> getBorrowers() {
         return borrowerService.findAll();
     }
 

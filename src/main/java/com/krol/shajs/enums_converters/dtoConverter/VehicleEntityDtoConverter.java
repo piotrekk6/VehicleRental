@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class VehicleEntityDtoConverter {
 
     public VehicleDto createDto(Vehicle vehicle)
@@ -50,7 +49,7 @@ public class VehicleEntityDtoConverter {
 
     public Bike createEntity(BikeDto bikeDto){
         Bike bike = new Bike();
-        bike.setName(bike.getName());
+        bike.setName(bikeDto.getName());
         bike.setId(bikeDto.getId());
         return bike;
     }

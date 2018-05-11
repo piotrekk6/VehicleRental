@@ -27,11 +27,11 @@ public abstract class Vehicle {
 
     @JsonIgnore
     public boolean isBike() {
-        return this.getVehicleType().equals(BIKE.getVehicleType());
+        return this instanceof Bike;
     }
     @JsonIgnore
     public boolean isCar() {
-        return this.getVehicleType().equals(CAR.getVehicleType());
+        return this instanceof Car;
     }
 
 }
