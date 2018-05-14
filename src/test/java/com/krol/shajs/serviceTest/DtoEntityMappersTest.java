@@ -1,4 +1,4 @@
-package com.krol.shajs.ServiceTest;
+package com.krol.shajs.serviceTest;
 
 import com.krol.shajs.dto.BikeDto;
 import com.krol.shajs.dto.CarDto;
