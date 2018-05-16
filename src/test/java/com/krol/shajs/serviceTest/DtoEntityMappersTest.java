@@ -82,12 +82,13 @@ public class DtoEntityMappersTest {
         Assert.assertEquals(carDto.getModel(), car.getModel());
     }
 
-    //test if mapped values from dto to entity, and if given entity in parameter object is the same as returned
+    //test if mapped values from dto to entity, and whether given entity in parameter object is the same as returned
     @Test
     public void test_mapCarEntity() {
         CarDto carDto = new CarDto("Fast", Color.RED, LocalDate.parse("2010-01-01"), "Furious");
         carDto.setId(39L);
         Car car = new Car();
+        Car car1 = car;
 
         car = vehicleEntityDtoConverter.createEntity(carDto, car);
 
@@ -95,5 +96,6 @@ public class DtoEntityMappersTest {
         Assert.assertEquals(carDto.getProductionDate(), car.getProductionDate());
         Assert.assertEquals(carDto.getColor(), car.getColor());
         Assert.assertEquals(carDto.getModel(), car.getModel());
+        Assert.assertSame(car1,car);
     }
 }
