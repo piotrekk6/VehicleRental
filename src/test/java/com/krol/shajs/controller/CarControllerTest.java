@@ -6,6 +6,7 @@ import com.krol.shajs.enums_converters.Color;
 import com.krol.shajs.service.CarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -47,12 +48,13 @@ public class CarControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    @WithMockUser
     public void shouldReturnOkStatusWhenAddedCarByManufacturer() throws Exception {
         String manufacturerName = "Daihatsu";
 
         mockMvc.perform(post("/api/addCar/{manufacturer}", manufacturerName))
                .andDo(print())
                .andExpect(status().isOk());
+        verify(carService, Mockito.times(1)).addCar(manufacturerName);
     }
 }

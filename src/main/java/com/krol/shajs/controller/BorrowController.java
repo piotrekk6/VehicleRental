@@ -3,7 +3,6 @@ package com.krol.shajs.controller;
 import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.dto.BorrowedVehicleDto;
 import com.krol.shajs.dto.BorrowerDto;
-import com.krol.shajs.dto.VehicleWithBorrowNameAndDateDto;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.BorrowService;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class BorrowController {
     }
 
     @GetMapping(value = "/show/{date}")
-    public List<VehicleWithBorrowNameAndDateDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws NotFoundException {
+    public List<Borrow> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws NotFoundException, ParseException {
         return borrowService.getAllVehiclesWithBorrowInfoForSpecifiedDate(date);
     }
 

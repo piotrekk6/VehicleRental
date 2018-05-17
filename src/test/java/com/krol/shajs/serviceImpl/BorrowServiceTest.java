@@ -2,7 +2,6 @@ package com.krol.shajs.serviceImpl;
 
 import com.krol.shajs.MockFactory;
 import com.krol.shajs.dto.BorrowDto;
-import com.krol.shajs.dto.VehicleWithBorrowNameAndDateDto;
 import com.krol.shajs.entity.Bike;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.entity.Borrower;
@@ -26,7 +25,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
@@ -98,7 +96,7 @@ public class BorrowServiceTest {
 
 
         //when
-        List<VehicleWithBorrowNameAndDateDto> allVehiclesWithBorrowInfoForSpecifiedDate = borrowService.getAllVehiclesWithBorrowInfoForSpecifiedDate(borrowDate);
+        //List<VehicleWithBorrowNameAndDateDto> allVehiclesWithBorrowInfoForSpecifiedDate = borrowService.getAllVehiclesWithBorrowInfoForSpecifiedDate(borrowDate);
 
         //then
 
