@@ -1,10 +1,13 @@
-package com.krol.shajs.serviceTest;
+package com.krol.shajs.serviceImpl;
 
+import com.krol.shajs.MockFactory;
 import com.krol.shajs.dto.BikeDto;
 import com.krol.shajs.dto.CarDto;
+import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Bike;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Manufacturer;
+import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.enums_converters.Color;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
 import org.junit.Assert;
@@ -15,6 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.krol.shajs.enums_converters.Color.BLACK;
 
@@ -97,5 +104,22 @@ public class DtoEntityMappersTest {
         Assert.assertEquals(carDto.getColor(), car.getColor());
         Assert.assertEquals(carDto.getModel(), car.getModel());
         Assert.assertSame(car1,car);
+    }
+
+    @Test
+    public void testMapCollections()
+    {
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(MockFactory.getBikeMock());
+        vehicles.add(MockFactory.getCarMock());
+        List<VehicleDto> vehicleDtos = vehicles.stream().map(borrower -> vehicleEntityDtoConverter.createDto(borrower)).collect(Collectors.toList());
+
+        Assert.assertEquals(vehicles.size(), vehicleDtos.size());
+        Iterator<Vehicle> vehicleIterator = vehicles.iterator();
+        Iterator<VehicleDto> vehicleDtoIterator = vehicleDtos.iterator();
+        while(vehicleDtoIterator.hasNext() && vehicleIterator.hasNext())
+        {
+            Assert.assertEquals(vehicleIterator.next().getId(), vehicleDtoIterator.next().getId());
+        }
     }
 }

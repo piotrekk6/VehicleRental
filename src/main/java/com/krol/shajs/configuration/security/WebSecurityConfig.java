@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/swagger.json").permitAll()   //disable security for swagger
             .antMatchers("/api/register").permitAll()
             .antMatchers("/**").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
             .and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

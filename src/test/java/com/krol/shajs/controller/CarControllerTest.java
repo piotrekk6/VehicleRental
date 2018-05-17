@@ -1,7 +1,6 @@
-package com.krol.shajs.controllerTest;
+package com.krol.shajs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.krol.shajs.controller.CarController;
 import com.krol.shajs.dto.CarDto;
 import com.krol.shajs.enums_converters.Color;
 import com.krol.shajs.service.CarService;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CarController.class)
+@ContextConfiguration
 public class CarControllerTest {
 
     @Autowired
@@ -33,7 +35,7 @@ public class CarControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void addCar_shouldReturnCreatedStatus() throws Exception {
+    public void shouldReturnCreatedStatusWhenAddedCar() throws Exception {
         CarDto carDto = new CarDto("Fast", Color.RED, LocalDate.parse("2010-01-01"), "Furious");
         String requestJson = objectMapper.writeValueAsString(carDto);
 
@@ -44,4 +46,13 @@ public class CarControllerTest {
         verify(carService).addCar(carDto);
     }
 
+    @Test
+    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    public void shouldReturnOkStatusWhenAddedCarByManufacturer() throws Exception {
+        String manufacturerName = "Daihatsu";
+
+        mockMvc.perform(post("/api/addCar/{manufacturer}", manufacturerName))
+               .andDo(print())
+               .andExpect(status().isOk());
+    }
 }

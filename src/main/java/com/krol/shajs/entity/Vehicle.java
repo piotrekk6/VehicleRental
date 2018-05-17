@@ -1,18 +1,24 @@
 package com.krol.shajs.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-
-import static com.krol.shajs.enums_converters.VehicleType.BIKE;
-import static com.krol.shajs.enums_converters.VehicleType.CAR;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Version;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @DiscriminatorValue(value = "dtype")
+@EqualsAndHashCode
 public abstract class Vehicle {
 
     @Id
