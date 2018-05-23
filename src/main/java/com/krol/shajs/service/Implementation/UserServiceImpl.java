@@ -4,7 +4,7 @@ import com.krol.shajs.dto.security.AddRoleDto;
 import com.krol.shajs.dto.security.UserDto;
 import com.krol.shajs.entity.Role;
 import com.krol.shajs.entity.User;
-import com.krol.shajs.exceptions.ApplicationException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.repository.RoleRepository;
 import com.krol.shajs.repository.UserRepository;
 import com.krol.shajs.service.UserService;
@@ -56,17 +56,17 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public void delete(long id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findOne(id);
+    public User findById(Long id) throws VehicleRentApplicationException {
+        return userRepository.findById(id).orElseThrow(() -> new VehicleRentApplicationException(USER_NOT_FOUND));
     }
 
     @Override
-    public UserDto save(UserDto userDto) throws ApplicationException {
-        if(userRepository.existsByUsername(userDto.getUsername())) throw new ApplicationException(USER_ALREADY_EXISTS);
+    public UserDto save(UserDto userDto) throws VehicleRentApplicationException {
+        if(userRepository.existsByUsername(userDto.getUsername())) throw new VehicleRentApplicationException(USER_ALREADY_EXISTS);
         User user = new User();
         user.setUsername(userDto.getUsername().trim());
         user.setPassword(bcryptEncoder.encode(userDto.getPassword()));
@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public void addRoles(AddRoleDto roleDto) throws ApplicationException {
+    public void addRoles(AddRoleDto roleDto) throws VehicleRentApplicationException {
         User user = getUserByUsername(roleDto.getUserName());
-        Optional.ofNullable(user).orElseThrow(() -> new ApplicationException(USER_NOT_FOUND));
+        Optional.ofNullable(user).orElseThrow(() -> new VehicleRentApplicationException(USER_NOT_FOUND));
         Set<Role> roles = roleDto.getRoles()
                                  .stream()
                                  .map(role -> Optional.ofNullable(roleRepository.findByRole(role))

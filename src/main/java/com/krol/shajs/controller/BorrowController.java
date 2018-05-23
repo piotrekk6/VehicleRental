@@ -5,7 +5,7 @@ import com.krol.shajs.dto.BorrowedVehicleDto;
 import com.krol.shajs.dto.BorrowerDto;
 import com.krol.shajs.dto.VehicleWithBorrowNameAndDateDto;
 import com.krol.shajs.entity.Borrow;
-import com.krol.shajs.exceptions.ApplicationException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
 import lombok.RequiredArgsConstructor;
@@ -33,12 +33,12 @@ public class BorrowController {
     private final BorrowerService borrowerService;
 
     @PostMapping
-    public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws ApplicationException {
+    public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws VehicleRentApplicationException {
         return borrowService.borrowVehicle(borrowDto);
     }
 
     @GetMapping(value = "/{date}")
-    public List<VehicleWithBorrowNameAndDateDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws ApplicationException, ParseException {
+    public List<VehicleWithBorrowNameAndDateDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws VehicleRentApplicationException, ParseException {
         return borrowService.getAllVehiclesWithBorrowInfoForSpecifiedDate(date);
     }
 

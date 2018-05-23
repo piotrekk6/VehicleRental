@@ -1,6 +1,6 @@
 package com.krol.shajs.enums_converters;
 
-        import lombok.*;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter

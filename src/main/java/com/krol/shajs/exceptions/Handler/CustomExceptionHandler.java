@@ -1,6 +1,6 @@
 package com.krol.shajs.exceptions.Handler;
 
-import com.krol.shajs.exceptions.ApplicationException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ import java.util.Map;
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(ApplicationException.class)
+    @ExceptionHandler(VehicleRentApplicationException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    protected Map<String,String> handleNotFoundException(ApplicationException e)
+    protected Map<String,String> handleNotFoundException(VehicleRentApplicationException e)
     {
         return Collections.singletonMap("Error", e.getCode().getCode());
     }

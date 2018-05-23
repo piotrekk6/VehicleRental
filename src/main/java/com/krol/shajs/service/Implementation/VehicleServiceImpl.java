@@ -3,7 +3,7 @@ package com.krol.shajs.service.Implementation;
 import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
-import com.krol.shajs.exceptions.ApplicationException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.repository.VehicleRepository;
 import com.krol.shajs.service.VehicleService;
 import lombok.RequiredArgsConstructor;
@@ -34,20 +34,19 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void deleteById(Long id) throws ApplicationException {
+    public void deleteById(Long id) throws VehicleRentApplicationException {
         vehicleRepository.delete(getVehicleByID(id));
     }
 
     @Override
-    public VehicleDto getVehicleById(Long id) throws ApplicationException {
+    public VehicleDto getVehicleById(Long id) throws VehicleRentApplicationException {
         Vehicle vehicle = getVehicleByID(id);
         return vehicleEntityDtoConverter.createDto(vehicle);
     }
 
-    public Vehicle getVehicleByID(Long id) throws ApplicationException {
-        Vehicle vehicle = vehicleRepository.findOne(id);
-        if (vehicle == null) throw new ApplicationException(VEHICLE_NOT_FOUND);
-        else return vehicle;
+    public Vehicle getVehicleByID(Long id) throws VehicleRentApplicationException {
+        Vehicle vehicle  =  vehicleRepository.findById(id).orElseThrow(() -> new VehicleRentApplicationException(VEHICLE_NOT_FOUND));
+        return vehicle;
     }
 
     @Override
