@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -64,10 +63,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public User save(UserDto userDto) {
         User user = new User();
-        user.setUsername(user.getUsername());
-        user.setPassword(bcryptEncoder.encode(user.getPassword()));
-        user.setAge(user.getAge());
-        user.setSalary(user.getSalary());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(bcryptEncoder.encode(userDto.getPassword()));
+        user.setAge(userDto.getAge());
+        user.setSalary(userDto.getSalary());
         return userRepository.save(user);
     }
 

@@ -2,11 +2,12 @@ package com.krol.shajs.dto;
 
 import com.krol.shajs.enums_converters.Color;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
+@NoArgsConstructor
 public class VehicleWithBorrowNameAndDateDto {
 
     private Long id;

@@ -1,10 +1,13 @@
-package com.krol.shajs.serviceTest;
+package com.krol.shajs.serviceImpl;
 
+import com.krol.shajs.MockFactory;
 import com.krol.shajs.dto.BikeDto;
 import com.krol.shajs.dto.CarDto;
+import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Bike;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Manufacturer;
+import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.enums_converters.Color;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
 import org.junit.Assert;
@@ -15,6 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.krol.shajs.enums_converters.Color.BLACK;
 
@@ -82,12 +89,13 @@ public class DtoEntityMappersTest {
         Assert.assertEquals(carDto.getModel(), car.getModel());
     }
 
-    //test if mapped values from dto to entity, and if given entity in parameter object is the same as returned
+    //test if mapped values from dto to entity, and whether given entity in parameter object is the same as returned
     @Test
     public void test_mapCarEntity() {
         CarDto carDto = new CarDto("Fast", Color.RED, LocalDate.parse("2010-01-01"), "Furious");
         carDto.setId(39L);
         Car car = new Car();
+        Car car1 = car;
 
         car = vehicleEntityDtoConverter.createEntity(carDto, car);
 
@@ -95,5 +103,23 @@ public class DtoEntityMappersTest {
         Assert.assertEquals(carDto.getProductionDate(), car.getProductionDate());
         Assert.assertEquals(carDto.getColor(), car.getColor());
         Assert.assertEquals(carDto.getModel(), car.getModel());
+        Assert.assertSame(car1,car);
+    }
+
+    @Test
+    public void testMapCollections()
+    {
+        List<Vehicle> vehicles = new ArrayList<>();
+        vehicles.add(MockFactory.getBikeMock());
+        vehicles.add(MockFactory.getCarMock());
+        List<VehicleDto> vehicleDtos = vehicles.stream().map(borrower -> vehicleEntityDtoConverter.createDto(borrower)).collect(Collectors.toList());
+
+        Assert.assertEquals(vehicles.size(), vehicleDtos.size());
+        Iterator<Vehicle> vehicleIterator = vehicles.iterator();
+        Iterator<VehicleDto> vehicleDtoIterator = vehicleDtos.iterator();
+        while(vehicleDtoIterator.hasNext() && vehicleIterator.hasNext())
+        {
+            Assert.assertEquals(vehicleIterator.next().getId(), vehicleDtoIterator.next().getId());
+        }
     }
 }

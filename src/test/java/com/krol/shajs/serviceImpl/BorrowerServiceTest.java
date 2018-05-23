@@ -1,5 +1,6 @@
-package com.krol.shajs.serviceTest;
+package com.krol.shajs.serviceImpl;
 
+import com.krol.shajs.MockFactory;
 import com.krol.shajs.dto.BorrowerDto;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowerEntityDtoConverter;
@@ -14,9 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -41,7 +39,8 @@ public class BorrowerServiceTest {
     @Test
     public void testGetBorrowerById() throws NotFoundException {
         //given
-        Borrower borrower = new Borrower();
+        Borrower borrower = MockFactory.getBorrowerMock();
+        borrower.setId(1L);
         when(borrowerRepository.findOne(1L)).thenReturn(borrower);
         //when
         Borrower borrowerById = borrowerService.getBorrowerById(1L);
@@ -50,31 +49,14 @@ public class BorrowerServiceTest {
     }
 
     @Test
-    public void testFindAll() {
-        //given
-        List<Borrower> borrowerList = new ArrayList<>();
-        when(borrowerRepository.findAll()).thenReturn(borrowerList);
-        //when
-        Assert.assertEquals(borrowerList, borrowerService.findAll());
-        //then
-    }
-
-    @Test
     public void testAddBorrower() {
         //given: borrower mock
-        Borrower borrower = new Borrower();
-        borrower.setId(98L);
-        borrower.setFirstName("Jan");
-        borrower.setSecondName("Kowalski");
+        Borrower borrower = MockFactory.getBorrowerMock();
 
         //and: borrowerDto mock
-        BorrowerDto borrowerDto = new BorrowerDto();
-        borrowerDto.setId(98L);
-        borrowerDto.setFirstName("Jan");
-        borrowerDto.setSecondName("Kowalski");
+        BorrowerDto borrowerDto = MockFactory.getBorrowerDtoMock();
 
         //and: mock borrowerRepository and dto mapper
-        when(borrowerRepository.save(any(Borrower.class))).thenReturn(borrower);
         when(borrowerEntityDtoConverter.createEntity(any(BorrowerDto.class))).thenReturn(borrower);
         //when: add new borrower
         borrowerService.addBorower(borrowerDto);
