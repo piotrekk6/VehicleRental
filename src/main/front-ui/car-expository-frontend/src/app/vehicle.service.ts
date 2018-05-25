@@ -13,18 +13,17 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
-
 @Injectable()
 export class VehicleService {
 
-  private carsUrl = 'api/showAll';
-  private carDetailsUrl = 'api/details';
-  private updateCarUrl = 'api/editCar';
-  private deleteCarUlr = 'api/delete';
-  private addCarUrl = 'api/addCar';
-  private addBikeUrl = 'api/addBike';
-  private borrowersUrl = 'api/getBorrowers'
-  private borrowedVehiclesUrl = 'api/show'
+  private carsUrl = 'api/vehicles';
+  private carDetailsUrl = 'api/vehicles';
+  private updateCarUrl = 'api/vehicles/cars/edit';
+  private deleteCarUlr = 'api/vehicles/';
+  private addCarUrl = 'api/vehicles/cars';
+  private addBikeUrl = 'api/bike';
+  private borrowersUrl = 'api/borrow/people'
+  private borrowedVehiclesUrl = 'api/borrow'
   private borrowVehicleUrl = 'api/borrow';
   private borrowDate;
 
@@ -79,7 +78,7 @@ export class VehicleService {
   }
 
   deleteVehicle(id: number): Observable<Vehicle> {
-    const url = `${this.deleteCarUlr}/${id}`;
+    const url = `${this.deleteCarUlr}/${id}/delete`;
 
     return this.http.delete<Vehicle>(url, httpOptions).pipe(
       tap(x => this.log(`deleted car id = ${id}`)), catchError(this.handleError<Vehicle>(`deleteCar`)));

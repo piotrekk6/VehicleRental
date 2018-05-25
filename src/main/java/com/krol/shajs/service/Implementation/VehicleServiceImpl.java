@@ -27,7 +27,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<VehicleDto> getAllVehiclesOrderById() {
         Set<Vehicle> vehicleResultList = vehicleRepository.findAllByOrderById();
-        return vehicleResultList.stream().map(vehicleEntityDtoConverter::createDto).collect(Collectors.toList());
+        return vehicleResultList
+                .stream()
+                .map(vehicleEntityDtoConverter::createDto)
+                .collect(Collectors.toList());
     }
 
     @Override

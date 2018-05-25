@@ -34,10 +34,10 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car addCar(String name) {
+    public Long addCar(String name) {
         Car car = new Car();
         car.setManufacturer(manufacturerService.getManufacturer(name));
-        return carRepository.save(car);
+        return carRepository.save(car).getId();
     }
 
     @Override

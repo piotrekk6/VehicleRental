@@ -7,7 +7,7 @@ import com.krol.shajs.exceptions.NotFoundException;
 public interface CarService {
 
     Car addCar(CarDto car);
-    Car addCar(String name);
+    Long addCar(String name);
     void editCar(CarDto editCarDto) throws NotFoundException;
 
 }

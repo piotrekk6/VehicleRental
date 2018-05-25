@@ -49,9 +49,10 @@ export class CarsComponent implements OnInit {
 
   onDateChanged(date: string) {
     this.getBorrowedVehicles(date);
-    if(this.isDateInputLaterOrEqualToToday()) this.setDetailsButtonDisabled(false);
     this.selectedVehicle = null;
     this.vehicleService.setBorrowDate(date);
+    this.enableButtonsIfVehicleSelected();
+    if(this.isDateInputLaterOrEqualToToday()) this.setDetailsButtonDisabled(false);
   }
 
   getBorrowedVehicles(date: string) {

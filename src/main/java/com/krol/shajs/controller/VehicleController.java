@@ -5,13 +5,17 @@ import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/vehicles")
 @ResponseStatus(HttpStatus.OK)
 public class VehicleController {
 
@@ -22,19 +26,18 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
-    @GetMapping(value = "/showAll")
+    @GetMapping
     public Collection<VehicleDto> showAll() {
         return vehicleService.getAllVehiclesOrderById();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}/delete")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteById(@PathVariable("id") String id) throws NotFoundException {
         vehicleService.deleteById(Long.valueOf(id));
     }
 
-    @GetMapping(value = "/details/{id}")
+    @GetMapping(value = "/{id}")
     public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
         return vehicleService.getVehicleById(Long.valueOf(id));
     }

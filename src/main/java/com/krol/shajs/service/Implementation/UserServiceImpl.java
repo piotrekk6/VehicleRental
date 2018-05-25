@@ -4,6 +4,7 @@ import com.krol.shajs.dto.security.AddRoleDto;
 import com.krol.shajs.dto.security.UserDto;
 import com.krol.shajs.entity.Role;
 import com.krol.shajs.entity.User;
+import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.RoleRepository;
 import com.krol.shajs.repository.UserRepository;
 import com.krol.shajs.service.UserService;
@@ -19,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.krol.shajs.enums_converters.ExceptionCode.USER_NOT_FOUND;
 
 
 @Service
@@ -71,9 +74,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public void addRoles(AddRoleDto roleDto) {
+    public void addRoles(AddRoleDto roleDto) throws NotFoundException {
         User user = getUserByUsername(roleDto.getUserName());
-        Set<Role> roles = roleDto.getRoles().stream()
+        Optional.ofNullable(user).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        Set<Role> roles = roleDto.getRoles()
+                                 .stream()
                                  .map(role -> Optional.ofNullable(roleRepository.findByRole(role))
                                                       .orElseGet(() -> roleRepository.save(new Role(role))))
                                  .collect(Collectors.toSet());

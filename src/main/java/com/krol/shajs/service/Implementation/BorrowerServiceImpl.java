@@ -38,6 +38,9 @@ public class BorrowerServiceImpl implements BorrowerService {
 
     @Override
     public List<BorrowerDto> findAll() {
-        return borrowerRepository.findAll().stream().map(borrowerEntityDtoConverter::borrowerDto).collect(Collectors.toList());
+        return borrowerRepository.findAll()
+                                 .stream()
+                                 .map(borrowerEntityDtoConverter::borrowerDto)
+                                 .collect(Collectors.toList());
     }
 }

@@ -3,6 +3,7 @@ package com.krol.shajs.controller;
 import com.krol.shajs.dto.BorrowDto;
 import com.krol.shajs.dto.BorrowedVehicleDto;
 import com.krol.shajs.dto.BorrowerDto;
+import com.krol.shajs.dto.VehicleWithBorrowNameAndDateDto;
 import com.krol.shajs.entity.Borrow;
 import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.BorrowService;
@@ -23,7 +24,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/borrow")
 @RequiredArgsConstructor
 @ResponseStatus(OK)
 public class BorrowController {
@@ -31,27 +32,27 @@ public class BorrowController {
     private final BorrowService borrowService;
     private final BorrowerService borrowerService;
 
-    @PostMapping(value = "/borrow")
+    @PostMapping
     public Borrow borrowVehicle(@RequestBody BorrowDto borrowDto) throws NotFoundException {
         return borrowService.borrowVehicle(borrowDto);
     }
 
-    @GetMapping(value = "/show/{date}")
-    public List<Borrow> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws NotFoundException, ParseException {
+    @GetMapping(value = "/{date}")
+    public List<VehicleWithBorrowNameAndDateDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws NotFoundException, ParseException {
         return borrowService.getAllVehiclesWithBorrowInfoForSpecifiedDate(date);
     }
 
-    @GetMapping(value = "/showAllBorrows")
+    @GetMapping
     public Collection<BorrowedVehicleDto> showAllBorrows() {
         return borrowService.getAllBorrows();
     }
 
-    @PostMapping(value = "addBorrower")
+    @PostMapping("/people")
     public void addBorrower(@RequestBody BorrowerDto borrowerDto) {
         borrowerService.addBorower(borrowerDto);
     }
 
-    @GetMapping(value = "/getBorrowers")
+    @GetMapping(value = "/people")
     public Collection<BorrowerDto> getBorrowers() {
         return borrowerService.findAll();
     }
