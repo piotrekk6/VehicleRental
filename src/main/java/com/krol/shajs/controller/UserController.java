@@ -6,7 +6,7 @@ import com.krol.shajs.dto.security.AuthToken;
 import com.krol.shajs.dto.security.UserDto;
 import com.krol.shajs.dto.security.UserLoginDto;
 import com.krol.shajs.entity.User;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.ApplicationException;
 import com.krol.shajs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -33,18 +33,18 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
 
-    @GetMapping(value = "/users")
+    @GetMapping
     public List<User> listUser() {
         return userService.findAll();
     }
 
-    @GetMapping(value = "/users/{id}")
+    @GetMapping(value = "/{id}")
     public User getOne(@PathVariable(value = "id") Long id) {
         return userService.findById(id);
     }
 
     @PostMapping(value = "/roles")
-    public void addRoles(@RequestBody AddRoleDto addRolesDto) throws NotFoundException {
+    public void addRoles(@RequestBody AddRoleDto addRolesDto) throws ApplicationException {
         userService.addRoles(addRolesDto);
     }
     @PostMapping(value = "/login/generate-token")
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public User saveUser(@RequestBody UserDto user) {
+    public UserDto saveUser(@RequestBody UserDto user) throws ApplicationException {
         return userService.save(user);
     }
 }

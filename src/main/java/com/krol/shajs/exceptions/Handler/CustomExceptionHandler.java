@@ -1,6 +1,6 @@
 package com.krol.shajs.exceptions.Handler;
 
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.ApplicationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ import java.util.Map;
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(ApplicationException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    protected Map<String,String> handleNotFoundException(NotFoundException e)
+    protected Map<String,String> handleNotFoundException(ApplicationException e)
     {
         return Collections.singletonMap("Error", e.getCode().getCode());
     }

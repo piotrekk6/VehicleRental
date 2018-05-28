@@ -4,7 +4,7 @@ import com.krol.shajs.dto.CarDto;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Manufacturer;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.ApplicationException;
 import com.krol.shajs.repository.CarRepository;
 import com.krol.shajs.service.CarService;
 import com.krol.shajs.service.ManufacturerService;
@@ -41,11 +41,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void editCar(CarDto carDto) throws NotFoundException {
+    public void editCar(CarDto carDto) throws ApplicationException {
         Car car = carRepository.findById(carDto.getId());
         car =  Optional.ofNullable(car)
                        .map(car1 -> vehicleEntityDtoConverter.createEntity(carDto, car1))
-                       .orElseThrow(() -> new NotFoundException(VEHICLE_NOT_FOUND));
+                       .orElseThrow(() -> new ApplicationException(VEHICLE_NOT_FOUND));
         car.setManufacturer(manufacturerService.getManufacturer(carDto.getManufacturerName()));
         carRepository.save(car);
     }

@@ -3,7 +3,7 @@ package com.krol.shajs.service.Implementation;
 import com.krol.shajs.dto.BorrowerDto;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowerEntityDtoConverter;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.ApplicationException;
 import com.krol.shajs.repository.BorrowerRepository;
 import com.krol.shajs.service.BorrowerService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +24,9 @@ public class BorrowerServiceImpl implements BorrowerService {
     private final BorrowerEntityDtoConverter borrowerEntityDtoConverter;
 
     @Override
-    public Borrower getBorrowerById(Long id) throws NotFoundException {
+    public Borrower getBorrowerById(Long id) throws ApplicationException {
         Borrower borrower = borrowerRepository.findOne(id);
-        if (borrower == null) throw new NotFoundException(BORROWER_NOT_FOUND);
+        if (borrower == null) throw new ApplicationException(BORROWER_NOT_FOUND);
         else return borrower;
     }
 

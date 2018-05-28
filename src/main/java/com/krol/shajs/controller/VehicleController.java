@@ -1,7 +1,7 @@
 package com.krol.shajs.controller;
 
 import com.krol.shajs.dto.VehicleDto;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.ApplicationException;
 import com.krol.shajs.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,12 +33,12 @@ public class VehicleController {
 
     @DeleteMapping(value = "/{id}/delete")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteById(@PathVariable("id") String id) throws NotFoundException {
+    public void deleteById(@PathVariable("id") String id) throws ApplicationException {
         vehicleService.deleteById(Long.valueOf(id));
     }
 
     @GetMapping(value = "/{id}")
-    public VehicleDto showOne(@PathVariable("id") String id) throws NotFoundException {
+    public VehicleDto showOne(@PathVariable("id") String id) throws ApplicationException {
         return vehicleService.getVehicleById(Long.valueOf(id));
     }
 }

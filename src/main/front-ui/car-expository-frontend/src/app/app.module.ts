@@ -10,10 +10,10 @@ import {VehicleService} from './vehicle.service';
 import {MessagesComponent} from './messages/messages.component';
 import {MessageService} from './message.service';
 import {AppRoutingModule} from './app-routing.module';
-import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import { MyDatePickerModule } from 'mydatepicker';
-
+import {MyDatePickerModule} from 'mydatepicker';
+import {LoginComponent} from './login/login.component';
+import {AuthService} from "./AuthService";
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     AppComponent,
     CarsComponent,
     CarDetailsComponent,
-    MessagesComponent
+    MessagesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,11 +30,14 @@ import { MyDatePickerModule } from 'mydatepicker';
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     VehicleService,
     MessageService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

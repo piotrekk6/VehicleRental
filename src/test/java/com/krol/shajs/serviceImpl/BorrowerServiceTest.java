@@ -4,7 +4,7 @@ import com.krol.shajs.MockFactory;
 import com.krol.shajs.dto.BorrowerDto;
 import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowerEntityDtoConverter;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.ApplicationException;
 import com.krol.shajs.repository.BorrowerRepository;
 import com.krol.shajs.service.BorrowerService;
 import com.krol.shajs.service.Implementation.BorrowerServiceImpl;
@@ -37,7 +37,7 @@ public class BorrowerServiceTest {
     }
 
     @Test
-    public void testGetBorrowerById() throws NotFoundException {
+    public void testGetBorrowerById() throws ApplicationException {
         //given
         Borrower borrower = MockFactory.getBorrowerMock();
         borrower.setId(1L);

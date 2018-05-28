@@ -11,7 +11,8 @@ public enum ExceptionCode {
     VEHICLE_ALREADY_BORROWED("Vehicle is already borrowed for this date"),
     WRONG_DATE("Invalid date"),
     MANUFACTURER_NOT_FOUND("Manufacturer not found"),
-    USER_NOT_FOUND("User not found");
+    USER_NOT_FOUND("User not found"),
+    USER_ALREADY_EXISTS("User with this name already exist. Try another username");
 
     private  String code;
 }
