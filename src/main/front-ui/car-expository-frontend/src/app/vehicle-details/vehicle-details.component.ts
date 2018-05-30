@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Vehicle} from '../Vehicle';
+import {Vehicle} from '../models/Vehicle';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Params} from '@angular/router';
-import {VehicleService} from '../vehicle.service';
-import {Borrower} from "../Borrower";
-import {BorrowDto} from "../BorrowDto";
+import {VehicleService} from '../vehicles/vehicle.service';
+import {Borrower} from "../models/Borrower";
+import {BorrowDto} from "../models/BorrowDto";
 
 @Component({
   selector: 'app-car-details',

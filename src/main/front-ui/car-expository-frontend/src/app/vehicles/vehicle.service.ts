@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Vehicle} from './Vehicle';
+import {Vehicle} from '../models/Vehicle';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {MessageService} from './message.service';
+import {MessageService} from '../messages/message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
-import {Borrower} from './Borrower';
-import {vehicleDto} from "./vehicleDto";
-import {BorrowDto} from "./BorrowDto";
+import {Borrower} from '../models/Borrower';
+import {vehicleDto} from "../models/vehicleDto";
+import {BorrowDto} from "../models/BorrowDto";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})

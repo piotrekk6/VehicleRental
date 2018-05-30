@@ -4,7 +4,6 @@ import com.krol.shajs.configuration.security.JwtTokenUtil;
 import com.krol.shajs.dto.security.AddRoleDto;
 import com.krol.shajs.dto.security.AuthToken;
 import com.krol.shajs.dto.security.UserDto;
-import com.krol.shajs.dto.security.UserLoginDto;
 import com.krol.shajs.entity.User;
 import com.krol.shajs.exceptions.ApplicationException;
 import com.krol.shajs.service.UserService;
@@ -48,8 +47,8 @@ public class UserController {
         userService.addRoles(addRolesDto);
     }
     @PostMapping(value = "/login/generate-token")
-    public ResponseEntity<?> register(@RequestBody UserLoginDto loginUser) throws AuthenticationException {
-
+    public ResponseEntity<?> register(@RequestBody UserDto loginUser) throws AuthenticationException {
+        loginUser.setUsername(loginUser.getUsername());
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getUsername(),

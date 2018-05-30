@@ -68,10 +68,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public UserDto save(UserDto userDto) throws ApplicationException {
         if(userRepository.existsByUsername(userDto.getUsername())) throw new ApplicationException(USER_ALREADY_EXISTS);
         User user = new User();
-        user.setUsername(userDto.getUsername());
+        user.setUsername(userDto.getUsername().trim());
         user.setPassword(bcryptEncoder.encode(userDto.getPassword()));
-        user.setAge(userDto.getAge());
-        user.setSalary(userDto.getSalary());
         userRepository.save(user);
         return userDto;
     }

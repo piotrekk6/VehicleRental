@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {VehicleService} from '../vehicle.service';
-import {Vehicle} from '../Vehicle';
-import {MessageService} from '../message.service';
-import {vehicleDto} from "../vehicleDto";
+import {VehicleService} from './vehicle.service';
+import {Vehicle} from '../models/Vehicle';
+import {MessageService} from '../messages/message.service';
+import {vehicleDto} from "../models/vehicleDto";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
