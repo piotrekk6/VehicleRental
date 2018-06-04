@@ -11,10 +11,10 @@ import {MessageService} from './messages/message.service';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login/login.component';
-import {authService} from "./login/auth.service";
+import {authService} from "./auth/auth.service";
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './login/tokenInterceptor';
+import { TokenInterceptor } from './auth/tokenInterceptor';
 
 
 @NgModule({
