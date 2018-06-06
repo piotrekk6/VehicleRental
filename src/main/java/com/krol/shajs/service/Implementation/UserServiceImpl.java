@@ -4,6 +4,8 @@ import com.krol.shajs.dto.security.AddRoleDto;
 import com.krol.shajs.dto.security.UserDto;
 import com.krol.shajs.entity.Role;
 import com.krol.shajs.entity.User;
+import com.krol.shajs.enums_converters.ExceptionCode;
+import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.repository.RoleRepository;
 import com.krol.shajs.repository.UserRepository;
 import com.krol.shajs.service.UserService;
@@ -61,12 +63,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User save(UserDto userDto) {
+    public User save(UserDto userDto) throws NotFoundException {
+        if(userRepository.existsByUsername(userDto.getUsername()))
+        {
+            throw new NotFoundException(ExceptionCode.VEHICLE_ALREADY_BORROWED);
+        }
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(bcryptEncoder.encode(userDto.getPassword()));
-        user.setAge(userDto.getAge());
-        user.setSalary(userDto.getSalary());
         return userRepository.save(user);
     }
 

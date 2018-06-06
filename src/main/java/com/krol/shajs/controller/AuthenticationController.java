@@ -5,6 +5,7 @@ import com.krol.shajs.dto.security.AuthToken;
 import com.krol.shajs.dto.security.UserDto;
 import com.krol.shajs.dto.security.UserLoginDto;
 import com.krol.shajs.entity.User;
+import com.krol.shajs.exceptions.NotFoundException;
 import com.krol.shajs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public User saveUser(@RequestBody UserDto user) {
+    public User saveUser(@RequestBody UserDto user) throws NotFoundException {
         return userService.save(user);
     }
 

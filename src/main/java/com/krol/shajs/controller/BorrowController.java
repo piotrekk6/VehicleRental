@@ -39,7 +39,7 @@ public class BorrowController {
 
     @GetMapping(value = "/show/{date}")
     public List<VehicleWithBorrowNameAndDateDto> showBorrowForSpecifiedDay(@PathVariable("date") String date) throws NotFoundException, ParseException {
-        return borrowService.getAllVehiclesWithBorrowInfoForSpecifiedDate(date);
+        return borrowService.getBorrowedVehiclesForSpecifiedDate(date);
     }
 
     @GetMapping(value = "/showAllBorrows")
