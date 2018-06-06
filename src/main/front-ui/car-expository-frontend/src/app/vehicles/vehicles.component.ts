@@ -82,8 +82,10 @@ export class CarsComponent implements OnInit {
   isDateInputLaterOrEqualToToday(): boolean
   {
     this.todayDate = new Date();
+    this.todayDate.setHours(0,0,0,0);
     console.log("todayDate: " + this.todayDate);
     this.inputDate = new Date(this.borrowDate);
+    this.inputDate.setHours(0,0,0,0);
     console.log("input date: " + this.inputDate);
     if (this.inputDate >= this.todayDate) {
       return true

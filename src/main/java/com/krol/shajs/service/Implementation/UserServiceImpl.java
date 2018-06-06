@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     private List<SimpleGrantedAuthority> getAuthority(User user) {
-
         return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRole().name())).collect(Collectors.toList());
     }
 
@@ -66,7 +65,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public UserDto save(UserDto userDto) throws VehicleRentApplicationException {
-        if(userRepository.existsByUsername(userDto.getUsername())) throw new VehicleRentApplicationException(USER_ALREADY_EXISTS);
+        if (userRepository.existsByUsername(userDto.getUsername())) {
+            throw new VehicleRentApplicationException(USER_ALREADY_EXISTS);
+        }
         User user = new User();
         user.setUsername(userDto.getUsername().trim());
         user.setPassword(bcryptEncoder.encode(userDto.getPassword()));

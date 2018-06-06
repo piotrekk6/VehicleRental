@@ -15,6 +15,7 @@ import {authService} from "./auth/auth.service";
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/tokenInterceptor';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { TokenInterceptor } from './auth/tokenInterceptor';
     CarsComponent,
     CarDetailsComponent,
     MessagesComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

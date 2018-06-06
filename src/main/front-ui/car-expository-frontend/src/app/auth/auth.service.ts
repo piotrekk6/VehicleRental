@@ -7,7 +7,8 @@ import {tokenNotExpired} from "angular2-jwt";
 @Injectable()
 export class authService {
 
-  private loginUrl = "/api/users/login/generate-token"
+  private loginUrl = "/api/users/login/generate-token";
+  private registerUrl = "/api/users/register";
 
   constructor(private http: HttpClient) {
   }
@@ -30,5 +31,9 @@ export class authService {
     // return a boolean reflecting
     // whether or not the token is expired
     return tokenNotExpired(null, token);
+  }
+  register(user: User)
+  {
+    return this.http.post<User>(this.registerUrl, user).shareReplay();
   }
 }
