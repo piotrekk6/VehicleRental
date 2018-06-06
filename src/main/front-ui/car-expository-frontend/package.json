@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "angular-webstorage-service": "^1.0.2",
+    "angular2-jwt": "^0.2.3",
     "core-js": "^2.4.1",
     "mydatepicker": "^2.6.3",
     "rxjs": "^5.5.6",

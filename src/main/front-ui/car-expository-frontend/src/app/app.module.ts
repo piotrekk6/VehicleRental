@@ -1,19 +1,21 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-
 import {AppComponent} from './app.component';
 import {CarsComponent} from './vehicles/vehicles.component';
 import {CarDetailsComponent} from './vehicle-details/vehicle-details.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {VehicleService} from './vehicle.service';
+import {VehicleService} from './vehicles/vehicle.service';
 import {MessagesComponent} from './messages/messages.component';
-import {MessageService} from './message.service';
+import {MessageService} from './messages/message.service';
 import {AppRoutingModule} from './app-routing.module';
-import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import { MyDatePickerModule } from 'mydatepicker';
-
+import {LoginComponent} from './login/login.component';
+import {authService} from "./auth/auth.service";
+import { StorageServiceModule} from 'angular-webstorage-service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/tokenInterceptor';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { MyDatePickerModule } from 'mydatepicker';
     AppComponent,
     CarsComponent,
     CarDetailsComponent,
-    MessagesComponent
+    MessagesComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -29,11 +33,20 @@ import { MyDatePickerModule } from 'mydatepicker';
     AppRoutingModule,
     HttpClientModule,
     BrowserModule,
-    MyDatePickerModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    StorageServiceModule,
   ],
   providers: [
     VehicleService,
     MessageService,
+    authService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

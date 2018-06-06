@@ -51,9 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().
                 authorizeRequests()
             .antMatchers("/swagger.json").permitAll()   //disable security for swagger
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/**").permitAll()
-            .anyRequest().permitAll()
+            .antMatchers("/api/users/login/generate-token").permitAll()
+            .antMatchers("/api/users/register").permitAll()
+            .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

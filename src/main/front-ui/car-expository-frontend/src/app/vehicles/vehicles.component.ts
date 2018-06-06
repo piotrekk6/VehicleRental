@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {VehicleService} from '../vehicle.service';
-import {Vehicle} from '../Vehicle';
-import {MessageService} from '../message.service';
-import {vehicleDto} from "../vehicleDto";
+import {VehicleService} from './vehicle.service';
+import {Vehicle} from '../models/Vehicle';
+import {MessageService} from '../messages/message.service';
+import {vehicleDto} from "../models/vehicleDto";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
@@ -49,9 +49,10 @@ export class CarsComponent implements OnInit {
 
   onDateChanged(date: string) {
     this.getBorrowedVehicles(date);
-    if(this.isDateInputLaterOrEqualToToday()) this.setDetailsButtonDisabled(false);
     this.selectedVehicle = null;
     this.vehicleService.setBorrowDate(date);
+    this.enableButtonsIfVehicleSelected();
+    if(this.isDateInputLaterOrEqualToToday()) this.setDetailsButtonDisabled(false);
   }
 
   getBorrowedVehicles(date: string) {
@@ -81,8 +82,10 @@ export class CarsComponent implements OnInit {
   isDateInputLaterOrEqualToToday(): boolean
   {
     this.todayDate = new Date();
+    this.todayDate.setHours(0,0,0,0);
     console.log("todayDate: " + this.todayDate);
     this.inputDate = new Date(this.borrowDate);
+    this.inputDate.setHours(0,0,0,0);
     console.log("input date: " + this.inputDate);
     if (this.inputDate >= this.todayDate) {
       return true

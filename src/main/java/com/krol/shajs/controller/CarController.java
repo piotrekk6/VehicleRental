@@ -1,10 +1,11 @@
 package com.krol.shajs.controller;
 
 import com.krol.shajs.dto.CarDto;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.entity.Car;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,34 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping(value = "/api")
-@ResponseStatus(HttpStatus.OK)
+@RequestMapping(value = "/api/vehicles/cars")
+@ResponseStatus(OK)
+@RequiredArgsConstructor
 public class CarController {
 
-    private CarService carService;
+    private final CarService carService;
 
-    @Autowired
-    public CarController(CarService carService) {
-        this.carService = carService;
+    @PostMapping("/{manufacturer}")
+    public ResponseEntity<Car> addCarByManufacturer(@PathVariable("manufacturer") String manufacturerName) {
+        Long id = carService.addCar(manufacturerName);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/api/vehicles/"+id)
+                .build()
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("/addCar/{manufacturer}")
-    public void addCarByManufacturer(@PathVariable("manufacturer") String manufacturerName) {
-        carService.addCar(manufacturerName);
-    }
-
-    @PostMapping(value = "/addCar")
+    @PostMapping
     @ResponseStatus(CREATED)
     public void addCarByDto(@RequestBody CarDto carDto) {
         carService.addCar(carDto);
     }
 
-    @ PutMapping(value = "/editCar")
-    public void editCar(@RequestBody CarDto editCarDto) throws NotFoundException {
+    @PutMapping(value = "/edit")
+    public void editCar(@RequestBody CarDto editCarDto) throws VehicleRentApplicationException {
         carService.editCar(editCarDto);
     }
 }

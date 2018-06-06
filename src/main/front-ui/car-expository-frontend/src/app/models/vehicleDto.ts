@@ -9,4 +9,5 @@ export class vehicleDto{
   manufacturerName: string;
   borrowerFirstName: string;
   borrowerSecondName: string;
+  borrowDate: string;
 }

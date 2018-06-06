@@ -8,7 +8,7 @@ import com.krol.shajs.entity.Borrower;
 import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowEntityDtoConverter;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleBorrowConverter;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.repository.BorrowRepository;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
@@ -37,7 +37,7 @@ public class BorrowServiceImpl  implements BorrowService {
     private final VehicleBorrowConverter vehicleBorrowConverter;
 
     @Override
-    public Borrow borrowVehicle(BorrowDto borrowDto) throws NotFoundException {
+    public Borrow borrowVehicle(BorrowDto borrowDto) throws VehicleRentApplicationException {
         Borrower borrower = borrowerService.getBorrowerById(borrowDto.getBorrowerId());
         Vehicle vehicle = vehicleService.getVehicleByID(borrowDto.getVehicleId());
         boolean existsByDateAndVehicle = borrowRepository.existsByDateAndVehicle(borrowDto.getDate(), vehicle);
@@ -45,7 +45,7 @@ public class BorrowServiceImpl  implements BorrowService {
             Borrow borrow = new Borrow();
             borrow.borrow(borrower, vehicle, borrowDto.getDate());
             return borrowRepository.save(borrow);
-        } else throw new NotFoundException(VEHICLE_ALREADY_BORROWED);
+        } else throw new VehicleRentApplicationException(VEHICLE_ALREADY_BORROWED);
     }
 
     @Override

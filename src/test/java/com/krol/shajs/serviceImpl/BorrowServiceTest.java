@@ -9,7 +9,7 @@ import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Vehicle;
 import com.krol.shajs.enums_converters.dtoConverter.BorrowEntityDtoConverter;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleBorrowConverter;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.repository.BorrowRepository;
 import com.krol.shajs.service.BorrowService;
 import com.krol.shajs.service.BorrowerService;
@@ -52,7 +52,7 @@ public class BorrowServiceTest {
         borrowService = new BorrowServiceImpl(borrowRepository,borrowerService,vehicleService,borrowEntityDtoConverter,vehicleBorrowConverter);
     }
     @Test
-    public void shouldMakeNewBorrowOfVehicle() throws NotFoundException {
+    public void shouldMakeNewBorrowOfVehicle() throws VehicleRentApplicationException {
         //given: borrowDto from frontEnd
         BorrowDto borrowDto = MockFactory.getBorrowDtoMock();
         Borrow expectedBorrowMock = new Borrow(5L,borrowDto.getDate(),MockFactory.getCarMock(),MockFactory.getBorrowerMock());
@@ -76,7 +76,7 @@ public class BorrowServiceTest {
     }
 
     @Test
-    public void shouldReturnListOfCarsWithInfoAboutBorrowForSpecifiedDate() throws NotFoundException {
+    public void shouldReturnListOfCarsWithInfoAboutBorrowForSpecifiedDate() throws VehicleRentApplicationException {
         //given: Date from frontend
         String borrowDate = "2018-05-03";
         Car carMock =  MockFactory.getCarMock();

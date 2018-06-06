@@ -1,0 +1,16 @@
+<p>
+  <fieldset>
+    <legend>Login</legend>
+    <div class="form-field">
+      <label>Username:</label>
+      <input  [(ngModel)]="user.username" class="form-control">
+    </div>
+    <div class="form-field">
+      <label>Password:</label>
+      <input [(ngModel)]="user.password" class="form-control" type="password">
+    </div>
+  </fieldset>
+  <div class="form-buttons">
+    <button class="button button-primary"
+            (click)="login()">Login</button>
+  </div>

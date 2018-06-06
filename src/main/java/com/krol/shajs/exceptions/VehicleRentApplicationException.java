@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class NotFoundException  extends  Exception{
+public class VehicleRentApplicationException extends  Exception{
     private ExceptionCode code;
 }

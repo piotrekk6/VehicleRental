@@ -4,7 +4,7 @@ import com.krol.shajs.dto.CarDto;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Manufacturer;
 import com.krol.shajs.enums_converters.dtoConverter.VehicleEntityDtoConverter;
-import com.krol.shajs.exceptions.NotFoundException;
+import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import com.krol.shajs.repository.CarRepository;
 import com.krol.shajs.service.CarService;
 import com.krol.shajs.service.ManufacturerService;
@@ -34,18 +34,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car addCar(String name) {
+    public Long addCar(String name) {
         Car car = new Car();
         car.setManufacturer(manufacturerService.getManufacturer(name));
-        return carRepository.save(car);
+        return carRepository.save(car).getId();
     }
 
     @Override
-    public void editCar(CarDto carDto) throws NotFoundException {
-        Car car = carRepository.findById(carDto.getId());
+    public void editCar(CarDto carDto) throws VehicleRentApplicationException {
+        Car car = carRepository.findById(carDto.getId()).orElseThrow(() -> new VehicleRentApplicationException(VEHICLE_NOT_FOUND));
         car =  Optional.ofNullable(car)
                        .map(car1 -> vehicleEntityDtoConverter.createEntity(carDto, car1))
-                       .orElseThrow(() -> new NotFoundException(VEHICLE_NOT_FOUND));
+                       .orElseThrow(() -> new VehicleRentApplicationException(VEHICLE_NOT_FOUND));
         car.setManufacturer(manufacturerService.getManufacturer(carDto.getManufacturerName()));
         carRepository.save(car);
     }
