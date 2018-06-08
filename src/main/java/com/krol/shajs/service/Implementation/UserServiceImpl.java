@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public void addRoles(AddRoleDto roleDto) throws VehicleRentApplicationException {
         User user = getUserByUsername(roleDto.getUserName());
-        Optional.ofNullable(user).orElseThrow(() -> new VehicleRentApplicationException(USER_NOT_FOUND));
+        user = Optional.ofNullable(user).orElseThrow(() -> new VehicleRentApplicationException(USER_NOT_FOUND));
         Set<Role> roles = roleDto.getRoles()
                                  .stream()
                                  .map(role -> Optional.ofNullable(roleRepository.findByRole(role))

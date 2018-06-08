@@ -59,7 +59,6 @@ export class CarsComponent implements OnInit {
     this.vehicleService.getBorrowedVehicles(date).subscribe(borrows => this.vehiclesRent = borrows);
   }
 
-
   delete(vehicle: vehicleDto): void {
     this.vehiclesRent = this.vehiclesRent.filter(c => c !== vehicle);
     this.vehicleService.deleteVehicle(this.selectedId).subscribe();

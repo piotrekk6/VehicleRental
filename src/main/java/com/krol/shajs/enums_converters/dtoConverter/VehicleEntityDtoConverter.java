@@ -6,9 +6,6 @@ import com.krol.shajs.dto.VehicleDto;
 import com.krol.shajs.entity.Bike;
 import com.krol.shajs.entity.Car;
 import com.krol.shajs.entity.Vehicle;
-import com.krol.shajs.repository.CarRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -54,7 +51,7 @@ public class VehicleEntityDtoConverter {
         return bike;
     }
 
-    public Car createEntity(CarDto carDto, Car car)
+    public Car createEntityInGivenCarInstance(CarDto carDto, Car car)
     {
         car.setId(carDto.getId());
         car.setProductionDate(carDto.getProductionDate());

@@ -97,7 +97,7 @@ public class DtoEntityMappersTest {
         Car car = new Car();
         Car car1 = car;
 
-        car = vehicleEntityDtoConverter.createEntity(carDto, car);
+        car = vehicleEntityDtoConverter.createEntityInGivenCarInstance(carDto, car);
 
         Assert.assertEquals(carDto.getId(), car.getId());
         Assert.assertEquals(carDto.getProductionDate(), car.getProductionDate());

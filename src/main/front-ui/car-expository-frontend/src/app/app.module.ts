@@ -16,7 +16,7 @@ import { StorageServiceModule} from 'angular-webstorage-service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/tokenInterceptor';
 import { RegisterComponent } from './register/register.component';
-
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { RegisterComponent } from './register/register.component';
     CarDetailsComponent,
     MessagesComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
