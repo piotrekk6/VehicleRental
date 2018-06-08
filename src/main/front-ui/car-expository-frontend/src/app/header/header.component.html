@@ -1,0 +1,2 @@
+<button id="logOutButton" (click)="onLogout()" *ngIf="isLoggedIn()">Wyloguj</button>
+<a routerLink="/login"><button id="logInButton" *ngIf="!isLoggedIn()">Zaloguj</button></a>

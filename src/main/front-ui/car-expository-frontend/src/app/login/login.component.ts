@@ -13,6 +13,7 @@ export class LoginComponent {
   form: FormGroup;
   user: User;
   token: string;
+  isLoggedIn: boolean;
 
 
   constructor(private fb: FormBuilder,
@@ -27,6 +28,7 @@ export class LoginComponent {
 
   ngOnInit() {
     this.user = new User();
+    this.isLoggedIn = this.authService.isAuthenticated();
   }
 
   login() {
@@ -39,9 +41,9 @@ export class LoginComponent {
             this.token = response['token'];
             localStorage.setItem('token', this.token);
             console.log(this.token);
-            const token2 = this.authService.getTokenFromLocalStorage();
+            const token2 = authService.getTokenFromLocalStorage();
             console.log(token2);
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/showAll');
           }
         );
     }

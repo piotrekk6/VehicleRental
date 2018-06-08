@@ -1,0 +1,17 @@
+#logInButton, #logOutButton {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  border: none;
+  border-radius: 0px 0px 0px 10px;
+  color: white;
+  font-family: Tahoma, Geneva, sans-serif;
+  padding: 10px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  background-color: #1b6292;
+  z-index: 999;
+}
+#logInButton:hover, #logOutButton:hover {
+  background-color: #b12427;
+}

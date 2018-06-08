@@ -1,4 +1,4 @@
-package com.krol.shajs.exceptions.Handler;
+package com.krol.shajs.exceptions.handler;
 
 import com.krol.shajs.exceptions.VehicleRentApplicationException;
 import org.springframework.http.HttpHeaders;

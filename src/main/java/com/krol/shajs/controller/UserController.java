@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,16 +39,16 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public User getOne(@PathVariable(value = "id") Long id) throws VehicleRentApplicationException {
+    public User getOne(@PathVariable(value = "id") long id) throws VehicleRentApplicationException {
         return userService.findById(id);
     }
 
     @PostMapping(value = "/roles")
-    public void addRoles(@RequestBody AddRoleDto addRolesDto) throws VehicleRentApplicationException {
+    public void addRoles(@RequestBody @Valid AddRoleDto addRolesDto) throws VehicleRentApplicationException {
         userService.addRoles(addRolesDto);
     }
     @PostMapping(value = "/login/generate-token")
-    public ResponseEntity<?> register(@RequestBody UserDto loginUser) throws AuthenticationException {
+    public ResponseEntity<?> register(@Valid @RequestBody UserDto loginUser) throws AuthenticationException {
         loginUser.setUsername(loginUser.getUsername());
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

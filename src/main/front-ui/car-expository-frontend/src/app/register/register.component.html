@@ -1,18 +1,22 @@
 <div class="col-md-6 col-md-offset-3">
   <h2>Register</h2>
-  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+  <form name="form" #registerForm="ngForm" (ngSubmit)="register()">
+    <div class="form-group">
       <label>Username</label>
-      <input type="text" class="form-control" name="username" [(ngModel)]="user.username" #username="ngModel" required />
-      <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+      <input type="text" class="form-control" name="username" required  [(ngModel)]="user.username" #username="ngModel"/>
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+    <div [hidden]="username.valid" class="alert alert-danger">
+      Name is required
+    </div>
+    <div class="form-group" >
       <label>Password</label>
-      <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" required />
-      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+      <input type="password" class="form-control" name="password"  id="password" required [(ngModel)]="user.password" #password="ngModel"/>
+    </div>
+    <div [hidden]="password.valid" class="alert alert-danger">
+      Password is required
     </div>
     <div class="form-group">
-      <button  class="btn btn-primary" (click)="register()">Register</button>
+      <button  class="btn btn-success" type="submit" [disabled]="!registerForm.form.valid">Register</button>
       <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
     </div>
   </form>
