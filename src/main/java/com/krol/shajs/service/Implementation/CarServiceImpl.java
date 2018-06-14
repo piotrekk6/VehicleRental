@@ -12,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-import static com.krol.shajs.enums_converters.ExceptionCode.*;
+import static com.krol.shajs.enums_converters.ExceptionCode.VEHICLE_NOT_FOUND;
 
 @Service
 @Transactional
@@ -43,9 +41,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public void editCar(CarDto carDto) throws VehicleRentApplicationException {
         Car car = carRepository.findById(carDto.getId()).orElseThrow(() -> new VehicleRentApplicationException(VEHICLE_NOT_FOUND));
-        car =  Optional.ofNullable(car)
-                       .map(car1 -> vehicleEntityDtoConverter.createEntity(carDto, car1))
-                       .orElseThrow(() -> new VehicleRentApplicationException(VEHICLE_NOT_FOUND));
+        car =  vehicleEntityDtoConverter.createEntityInGivenCarInstance(carDto, car);
         car.setManufacturer(manufacturerService.getManufacturer(carDto.getManufacturerName()));
         carRepository.save(car);
     }

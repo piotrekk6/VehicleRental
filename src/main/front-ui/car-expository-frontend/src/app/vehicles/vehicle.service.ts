@@ -19,7 +19,7 @@ export class VehicleService {
   private carsUrl = 'api/vehicles';
   private carDetailsUrl = 'api/vehicles';
   private updateCarUrl = 'api/vehicles/cars/edit';
-  private deleteCarUlr = 'api/vehicles/';
+  private deleteCarUlr = 'api/vehicles';
   private addCarUrl = 'api/vehicles/cars';
   private addBikeUrl = 'api/bike';
   private borrowersUrl = 'api/borrow/people'

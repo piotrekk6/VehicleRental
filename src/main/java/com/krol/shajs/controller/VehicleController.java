@@ -33,12 +33,12 @@ public class VehicleController {
 
     @DeleteMapping(value = "/{id}/delete")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteById(@PathVariable("id") String id) throws VehicleRentApplicationException {
-        vehicleService.deleteById(Long.valueOf(id));
+    public void deleteById(@PathVariable("id") long id) throws VehicleRentApplicationException {
+        vehicleService.deleteById(id);
     }
 
     @GetMapping(value = "/{id}")
-    public VehicleDto showOne(@PathVariable("id") String id) throws VehicleRentApplicationException {
-        return vehicleService.getVehicleById(Long.valueOf(id));
+    public VehicleDto showOne(@PathVariable("id") long id) throws VehicleRentApplicationException {
+        return vehicleService.getVehicleById(id);
     }
 }

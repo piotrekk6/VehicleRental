@@ -4,15 +4,17 @@ import {CarsComponent} from './vehicles/vehicles.component';
 import {CarDetailsComponent} from './vehicle-details/vehicle-details.component';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
+import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
   { path: 'showAll', component: CarsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: '', redirectTo: 'showAll', pathMatch: 'full' },
-  { path: ':action/:id', component: CarDetailsComponent },
-  { path: ':action', component: CarDetailsComponent },
+  { path: '404', component: NotFoundComponent},
 
+  { path: ':action', component: CarDetailsComponent },
+  { path: ':action/:id', component: CarDetailsComponent },
+  { path: '**', redirectTo: '404', pathMatch: 'full'}
 ];
 
 @NgModule({

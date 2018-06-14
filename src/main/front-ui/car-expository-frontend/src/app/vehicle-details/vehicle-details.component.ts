@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Vehicle} from '../models/Vehicle';
 import {Location} from '@angular/common';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {VehicleService} from '../vehicles/vehicle.service';
 import {Borrower} from "../models/Borrower";
 import {BorrowDto} from "../models/BorrowDto";
@@ -32,28 +32,30 @@ export class CarDetailsComponent implements OnInit {
   @Input() vehicle: Vehicle;
 
 
-  constructor(private route: ActivatedRoute, private vehicleService: VehicleService, private location: Location) {
+  constructor(private route: ActivatedRoute, private router: Router, private vehicleService: VehicleService, private location: Location) {
   }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.action = params['action'])
     console.log("current url: " + this.action);
 
-    this.getBorrowers();
     if (this.action === 'details') {
-      this.getCar();
+      this.getVehicle();
+      this.getBorrowers();
       this.createDetailsForm();
     } else if (this.action === 'editCar') {
-      this.getCar();
+      this.getVehicle();
       this.createEditForm();
     } else if (this.action === 'addCar') {
       this.vehicle = new Vehicle();
       this.createAddForm();
     }
-
+    else {
+      this.router.navigateByUrl("/404");
+    }
   }
 
-  getCar(): void {
+  getVehicle(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.vehicleService.getVehicle(id).subscribe(car => this.vehicle = car);
   }
@@ -86,8 +88,7 @@ export class CarDetailsComponent implements OnInit {
     console.log("BorrowDate " + this.vehicleService.getBorrowDate());
   }
 
-  onBorrowButtonClicked()
-  {
+  onBorrowButtonClicked() {
     this.borrowVehicle(this.borrow);
   }
 
@@ -103,7 +104,6 @@ export class CarDetailsComponent implements OnInit {
     else if (vehicleType === 'Car') {
       this.setBikeOnlyInputsEnabled(false);
     }
-
   }
 
   private createDetailsForm(): void {
@@ -126,11 +126,10 @@ export class CarDetailsComponent implements OnInit {
     this.isColorInputDisabled = false;
     this.isIdInputDisabled = true;
     this.isVehicleTypeInputDisabled = false;
-    this.isNameInputDisabled = false;
+    this.isNameInputDisabled = true;
     this.isButtonSaveVisible = true;
     this.isSelectBorrowerVisible = false;
     this.isBorrowButtonVisible = false;
-
   }
 
   private createAddForm(): void {

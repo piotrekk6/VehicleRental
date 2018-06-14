@@ -9,6 +9,7 @@ export class authService {
 
   private loginUrl = "/api/users/login/generate-token";
   private registerUrl = "/api/users/register";
+  public isLoggedIn: boolean;
 
   constructor(private http: HttpClient) {
   }
@@ -17,21 +18,25 @@ export class authService {
     return this.http.post<User>(this.loginUrl, user).shareReplay();
   }
 
-  public getTokenFromLocalStorage(): string {
-    return localStorage.getItem('token');
+  logout()
+  {
+    localStorage.removeItem('token');
+    this.isLoggedIn = this.isAuthenticated();
+    location.reload();
   }
 
-  public setTokenInLocalStorage(token: string): void {
-    localStorage.setItem('token', token);
+  static getTokenFromLocalStorage(): string {
+    return localStorage.getItem('token');
   }
 
   public isAuthenticated(): boolean {
     // get the token
-    const token = this.getTokenFromLocalStorage();
+    const token = authService.getTokenFromLocalStorage();
     // return a boolean reflecting
     // whether or not the token is expired
     return tokenNotExpired(null, token);
   }
+
   register(user: User)
   {
     return this.http.post<User>(this.registerUrl, user).shareReplay();
