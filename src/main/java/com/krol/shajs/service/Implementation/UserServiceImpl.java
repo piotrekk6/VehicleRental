@@ -27,27 +27,11 @@ import static com.krol.shajs.enums_converters.ExceptionCode.USER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserDetailsService, UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bcryptEncoder;
-    private final RoleRepository roleRepository;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
-    }
-
-    public User getUserByUsername(String userName) {
-        return userRepository.findByUsername(userName);
-    }
-
-    private List<SimpleGrantedAuthority> getAuthority(User user) {
-        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRole().name())).collect(Collectors.toList());
-    }
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -74,18 +58,4 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         userRepository.save(user);
         return userDto;
     }
-
-    @Override
-    public void addRoles(AddRoleDto roleDto) throws VehicleRentApplicationException {
-        User user = getUserByUsername(roleDto.getUserName());
-        user = Optional.ofNullable(user).orElseThrow(() -> new VehicleRentApplicationException(USER_NOT_FOUND));
-        Set<Role> roles = roleDto.getRoles()
-                                 .stream()
-                                 .map(role -> Optional.ofNullable(roleRepository.findByRole(role))
-                                                      .orElseGet(() -> roleRepository.save(new Role(role))))
-                                 .collect(Collectors.toSet());
-        user.addRoles(roles);
-        userRepository.save(user);
-    }
-
 }

@@ -9,12 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 public interface UserService {
-
     UserDto save(UserDto user) throws VehicleRentApplicationException;
     List<User> findAll();
     void delete(long id);
     User findById(Long id) throws VehicleRentApplicationException;
-    public User getUserByUsername(String userName);
-    UserDetails loadUserByUsername(String userName);
-    void addRoles(AddRoleDto roleDto) throws VehicleRentApplicationException;
 }

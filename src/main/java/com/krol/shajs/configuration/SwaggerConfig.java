@@ -24,13 +24,6 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build()
-                .globalOperationParameters(new ArrayList<>(Collections.singleton(new ParameterBuilder()
-                        .name("Authorization")
-                        .description(HEADER_STRING + " JWT token")
-                        .modelRef(new ModelRef("string"))
-                        .parameterType("header")
-                        .required(false)
-                        .build())));
+                .build();
     }
 }

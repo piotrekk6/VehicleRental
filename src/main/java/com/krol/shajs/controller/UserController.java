@@ -1,6 +1,5 @@
 package com.krol.shajs.controller;
 
-import com.krol.shajs.configuration.security.JwtTokenUtil;
 import com.krol.shajs.dto.security.AddRoleDto;
 import com.krol.shajs.dto.security.AuthToken;
 import com.krol.shajs.dto.security.UserDto;
@@ -30,8 +29,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenUtil jwtTokenUtil;
 
     @GetMapping
     public List<User> listUser() {
@@ -41,29 +38,5 @@ public class UserController {
     @GetMapping(value = "/{id}")
     public User getOne(@PathVariable(value = "id") long id) throws VehicleRentApplicationException {
         return userService.findById(id);
-    }
-
-    @PostMapping(value = "/roles")
-    public void addRoles(@RequestBody @Valid AddRoleDto addRolesDto) throws VehicleRentApplicationException {
-        userService.addRoles(addRolesDto);
-    }
-    @PostMapping(value = "/login/generate-token")
-    public ResponseEntity<?> register(@Valid @RequestBody UserDto loginUser) throws AuthenticationException {
-        loginUser.setUsername(loginUser.getUsername());
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginUser.getUsername(),
-                        loginUser.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final User user = userService.getUserByUsername(loginUser.getUsername());
-        final String token = jwtTokenUtil.generateToken(user);
-        return ResponseEntity.ok(new AuthToken(token));
-    }
-
-    @PostMapping(value = "/register")
-    public UserDto saveUser(@RequestBody UserDto user) throws VehicleRentApplicationException {
-        return userService.save(user);
     }
 }
